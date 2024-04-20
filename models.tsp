@@ -37,6 +37,15 @@ model Post {
 
 	/** 태그 목록 */
 	tags: string[];
+
+	/** 좋아요 수 */
+	likes: uint64;
+
+	/** 조회수 */
+	views: uint64;
+
+	/** 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부 */
+	isLiked: boolean;
 }
 
 model Company {
