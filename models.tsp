@@ -14,6 +14,7 @@ model Post {
 	company: Company;
 
 	/** 피드 배너 이미지 목록 */
+	@maxItems(10)
 	feeds: url[];
 
 	/** Post 상세 내용 */
