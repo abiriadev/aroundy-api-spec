@@ -17,6 +17,7 @@ model Post {
 	feeds: url[];
 
 	/** Post 상세 내용 */
+	@maxLength(2200)
 	caption: string;
 
 	/** 이벤트 유형 */
@@ -53,6 +54,7 @@ model Post {
 /** 기업 정보 */
 model Company {
 	/** 기업 고유 ID */
+	@format("uuid")
 	id: string;
 
 	/** 기업명 */
@@ -68,7 +70,6 @@ model Company {
 /** 이벤트 유형 */
 enum EventType {
 	/** 온라인 */
-	@format("uuid")
 	Online,
 
 	/** 오프라인 */
