@@ -8,7 +8,7 @@ model Post {
 	/** 카테고리 */
 	category: string;
 
-	/** Post를 등록한 회사 */
+	/** Post를 등록한 기업 */
 	company: string;
 
 	/** 피드 배너 이미지 목록 */
@@ -37,4 +37,18 @@ model Post {
 
 	/** 태그 목록 */
 	tags: string[];
+}
+
+model Company {
+	/** 기업 고유 ID */
+	id: string;
+
+	/** 기업명 */
+	name: string;
+
+	/** 기업 로고 */
+	logo: string;
+
+	/** 상태 */
+	status: string;
 }
