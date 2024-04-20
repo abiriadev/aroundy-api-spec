@@ -12,7 +12,7 @@ model Post {
 	company: string;
 
 	/** 피드 배너 이미지 목록 */
-	feeds: string[];
+	feeds: url[];
 
 	/** Post 상세 내용 */
 	caption: string;
@@ -33,7 +33,7 @@ model Post {
 	endsAt: utcDateTime;
 
 	/** 출처 링크 */
-	link: string;
+	link: url;
 
 	/** 태그 목록 */
 	tags: string[];
@@ -56,7 +56,7 @@ model Company {
 	name: string;
 
 	/** 기업 로고 */
-	logo: string;
+	logo: url;
 
 	/** 상태 */
 	status: string;
