@@ -4,13 +4,17 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsp compile .",
+		"build:watch": "tsp compile . --watch",
 		"format": "tsp format \"**/*.tsp\""
 	},
-	"dependencies": {
+	"private": true,
+	"devDependencies": {
 		"@typespec/compiler": "latest",
 		"@typespec/http": "latest",
+		"@typespec/openapi3": "latest",
 		"@typespec/rest": "latest",
-		"@typespec/openapi3": "latest"
-	},
-	"private": true
+		"@typespec/versioning": "^0.55.0",
+		"@redocly/cli": "^1.11.0",
+		"swagger-ui-cli": "^0.15.0"
+	}
 }
