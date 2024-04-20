@@ -9,7 +9,7 @@ model Post {
 	category: string;
 
 	/** Post를 등록한 기업 */
-	company: string;
+	company: Company;
 
 	/** 피드 배너 이미지 목록 */
 	feeds: url[];
