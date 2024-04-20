@@ -1,3 +1,4 @@
+/** Post 정보 */
 model Post {
 	/** Post의 고유 ID */
 	id: string;
@@ -48,6 +49,7 @@ model Post {
 	isLiked: boolean;
 }
 
+/** 기업 정보 */
 model Company {
 	/** 기업 고유 ID */
 	id: string;
