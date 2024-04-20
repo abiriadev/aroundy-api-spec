@@ -71,11 +71,11 @@ model Company {
 /** 이벤트 유형 */
 enum EventType {
 	/** 온라인 */
-	Online,
+	Online: "online",
 
 	/** 오프라인 */
-	Offline,
+	Offline: "offline",
 
 	/** 온/오프라인 */
-	Both,
+	Both: "both",
 }
