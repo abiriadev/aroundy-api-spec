@@ -21,19 +21,19 @@ model Post {
 	type: string;
 
 	/** 상세주소 */
-	location: string;
+	location: string | null;
 
 	/** 연락처 */
-	contact: string;
+	contact: string | null;
 
 	/** 오픈일 */
-	startsAt: utcDateTime;
+	startsAt: utcDateTime | null;
 
 	/** 종료일 */
-	endsAt: utcDateTime;
+	endsAt: utcDateTime | null;
 
 	/** 출처 링크 */
-	link: url;
+	link: url | null;
 
 	/** 태그 목록 */
 	tags: string[];
