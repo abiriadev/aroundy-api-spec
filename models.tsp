@@ -8,8 +8,8 @@ model Post {
 	type: string;
 	location: string;
 	contact: string;
-	startsAt: datetime;
-	endsAt: datetime;
+	startsAt: utcDateTime;
+	endsAt: utcDateTime;
 	link: string;
 	tags: string[];
 }
