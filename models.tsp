@@ -1,6 +1,7 @@
 /** Post 정보 */
 model Post {
 	/** Post의 고유 ID */
+	@format("uuid")
 	id: string;
 
 	/** 제목 */
@@ -67,6 +68,7 @@ model Company {
 /** 이벤트 유형 */
 enum EventType {
 	/** 온라인 */
+	@format("uuid")
 	Online,
 
 	/** 오프라인 */
