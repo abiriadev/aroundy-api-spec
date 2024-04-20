@@ -18,7 +18,7 @@ model Post {
 	caption: string;
 
 	/** 이벤트 유형 */
-	type: string;
+	type: EventType;
 
 	/** 상세주소 */
 	location: string | null;
@@ -60,4 +60,10 @@ model Company {
 
 	/** 상태 */
 	status: string;
+}
+
+enum EventType {
+	Online,
+	Offline,
+	Both,
 }
