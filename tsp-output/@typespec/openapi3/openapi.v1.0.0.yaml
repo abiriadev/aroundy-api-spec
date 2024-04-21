@@ -553,7 +553,18 @@ components:
         - lowserPrice
         - farthest
         - nearest
-      description: Post 추천 기준
+      description: |-
+        Post 추천 기준
+
+        - `recommended`: 추천순
+        - `latest`: 게시순
+        - `deadline`: 마감순
+        - `higherDiscount`: 높은 할인순
+        - `lowserDiscount`: 낮은 할인순
+        - `higherPrice`: 높은 가격순
+        - `lowserPrice`: 낮은 가격순
+        - `farthest`: 먼 거리순
+        - `nearest`: 가까운 거리순
     Versions:
       type: string
       enum:

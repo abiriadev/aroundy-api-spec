@@ -26,7 +26,18 @@ enum Versions {
 
 @route("/posts")
 namespace Posts {
-	/** Post 추천 기준 */
+	/** Post 추천 기준
+	 *
+	 * - `recommended`: 추천순
+	 * - `latest`: 게시순
+	 * - `deadline`: 마감순
+	 * - `higherDiscount`: 높은 할인순
+	 * - `lowserDiscount`: 낮은 할인순
+	 * - `higherPrice`: 높은 가격순
+	 * - `lowserPrice`: 낮은 가격순
+	 * - `farthest`: 먼 거리순
+	 * - `nearest`: 가까운 거리순
+	 * */
 	enum SortOption {
 		/** 추천순 */
 		recommended,
