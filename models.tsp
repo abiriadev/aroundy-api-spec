@@ -70,11 +70,8 @@ model Post extends BasePost {
 	isSaved: boolean;
 }
 
-/** 기업 정보 */
-model Company {
-	/** 기업 고유 ID */
-	id: id;
-
+/** 상속용 Company 클래스 */
+model BaseCompany {
 	/** 기업명 */
 	name: string;
 
@@ -83,6 +80,12 @@ model Company {
 
 	/** 상태 */
 	status: string;
+}
+
+/** 기업 정보 */
+model Company extends BaseCompany {
+	/** 기업 고유 ID */
+	id: id;
 }
 
 /** 이벤트 유형

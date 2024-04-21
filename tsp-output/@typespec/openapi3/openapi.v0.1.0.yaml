@@ -532,6 +532,24 @@ components:
       schema:
         $ref: '#/components/schemas/Posts.SortOption'
   schemas:
+    BaseCompany:
+      type: object
+      required:
+        - name
+        - logo
+        - status
+      properties:
+        name:
+          type: string
+          description: 기업명
+        logo:
+          type: string
+          format: uri
+          description: 기업 로고
+        status:
+          type: string
+          description: 상태
+      description: 상속용 Company 클래스
     BasePost:
       type: object
       required:
@@ -601,24 +619,13 @@ components:
       type: object
       required:
         - id
-        - name
-        - logo
-        - status
       properties:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
           description: 기업 고유 ID
-        name:
-          type: string
-          description: 기업명
-        logo:
-          type: string
-          format: uri
-          description: 기업 로고
-        status:
-          type: string
-          description: 상태
+      allOf:
+        - $ref: '#/components/schemas/BaseCompany'
       description: 기업 정보
     CreatePost:
       type: object
