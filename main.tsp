@@ -72,13 +72,13 @@ namespace Posts {
 		 *
 		 * 단위는 10k KRW
 		 * */
-		@query priceMin?: int64,
+		@query priceMin?: uint64,
 
 		/** 최대 가격 필터
 		 *
 		 * 단위는 10k KRW
 		 * */
-		@query priceMax?: int64,
+		@query priceMax?: uint64,
 
 		/** 지역 필터
 		 *

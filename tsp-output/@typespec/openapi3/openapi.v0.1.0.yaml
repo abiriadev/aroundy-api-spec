@@ -45,7 +45,7 @@ paths:
             단위는 10k KRW
           schema:
             type: integer
-            format: int64
+            format: uint64
         - name: priceMax
           in: query
           required: false
@@ -55,7 +55,7 @@ paths:
             단위는 10k KRW
           schema:
             type: integer
-            format: int64
+            format: uint64
         - name: location
           in: query
           required: false
