@@ -27,8 +27,14 @@ model BasePost {
 	/** 연락처 */
 	contact: string | null;
 
+	/** 가격 */
+	pricing: uint64 | null;
+
+	/** 할인률 */
+	discountRate: uint64 | null;
+
 	/** 오픈일 */
-	startsAt: utcDateTime | null;
+	startsAt: utcDateTime;
 
 	/** 종료일 */
 	endsAt: utcDateTime | null;
@@ -53,6 +59,9 @@ alias UpdatePost = OptionalProperties<BasePost>;
 model Post extends BasePost {
 	/** Post의 고유 ID */
 	id: id;
+
+	/** 게시일 */
+	createAt: utcDateTime;
 
 	/** Post를 등록한 기업 */
 	company: Company;

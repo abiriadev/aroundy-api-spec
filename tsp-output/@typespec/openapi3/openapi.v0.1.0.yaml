@@ -351,10 +351,19 @@ paths:
                   type: string
                   nullable: true
                   description: 연락처
+                pricing:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: 가격
+                discountRate:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: 할인률
                 startsAt:
                   type: string
                   format: date-time
-                  nullable: true
                   description: 오픈일
                 endsAt:
                   type: string
@@ -578,6 +587,8 @@ components:
         - type
         - location
         - contact
+        - pricing
+        - discountRate
         - startsAt
         - endsAt
         - link
@@ -612,10 +623,19 @@ components:
           type: string
           nullable: true
           description: 연락처
+        pricing:
+          type: integer
+          format: uint64
+          nullable: true
+          description: 가격
+        discountRate:
+          type: integer
+          format: uint64
+          nullable: true
+          description: 할인률
         startsAt:
           type: string
           format: date-time
-          nullable: true
           description: 오픈일
         endsAt:
           type: string
@@ -685,6 +705,7 @@ components:
       type: object
       required:
         - id
+        - createAt
         - company
         - likes
         - views
@@ -695,6 +716,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/id'
           description: Post의 고유 ID
+        createAt:
+          type: string
+          format: date-time
+          description: 게시일
         company:
           allOf:
             - $ref: '#/components/schemas/Company'
