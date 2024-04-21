@@ -179,7 +179,7 @@ namespace Companies {
 	/**
 	 * 기업 목록을 추천 기준에 따라 조회 및 검색한다.
 	 * */
-	@summary("Post 조회 및 검색")
+	@summary("기업 조회 및 검색")
 	@tag("App")
 	op fetchCompanies(
 	): TotalRecordsHeader<Paginate<Company>>;
