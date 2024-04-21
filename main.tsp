@@ -185,6 +185,12 @@ namespace Companies {
 	@summary("기업 조회 및 검색")
 	@tag("App")
 	op fetchCompanies(
+		/**
+		 * 검색어
+		 *
+		 * 초성 검색 지원
+		 * */
+		@query search?: string,
 	): TotalRecordsHeader<Paginate<Company>>;
 
 	@summary("새 기업 등록")
