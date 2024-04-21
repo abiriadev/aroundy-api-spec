@@ -132,11 +132,7 @@ paths:
       operationId: Posts_updatePost
       summary: Post 수정
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -205,11 +201,7 @@ paths:
       operationId: Posts_deletePost
       summary: Post 삭제
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -224,11 +216,7 @@ paths:
       operationId: Posts_like
       summary: 좋아요 추가
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -239,11 +227,7 @@ paths:
       operationId: Posts_save
       summary: 마이페이지에 저장
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -254,11 +238,7 @@ paths:
       operationId: Posts_unlike
       summary: 좋아요 해제
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -269,11 +249,7 @@ paths:
       operationId: Posts_unsave
       summary: 마이페이지에서 저장 취소
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -284,16 +260,18 @@ paths:
       operationId: Posts_view
       summary: 조회수 증가
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/id'
+        - $ref: '#/components/parameters/Posts.ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
 components:
   parameters:
+    Posts.ById:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
     Posts.QueryOption.category:
       name: category
       in: query

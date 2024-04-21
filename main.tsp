@@ -139,15 +139,19 @@ namespace Posts {
 		...Post;
 	};
 
+	model ById {
+		@path id: id;
+	}
+
 	@summary("Post 수정")
 	@patch
-	op updatePost(@path id: id, ...UpdatePost): Post;
+	op updatePost(...ById, ...UpdatePost): Post;
 
 	@summary("좋아요 추가")
 	@tag("App")
 	@route("/{id}/like")
 	@patch
-	op like(@path id: id): void;
+	op like(...ById): void;
 
 	@summary("좋아요 해제")
 	@route("/{id}/unlike")
@@ -167,5 +171,5 @@ namespace Posts {
 
 	@summary("Post 삭제")
 	@delete
-	op deletePost(@path id: id): Post;
+	op deletePost(...ById): Post;
 }
