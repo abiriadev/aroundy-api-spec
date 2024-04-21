@@ -84,6 +84,18 @@ namespace Posts {
 	@patch
 	op unlike(@path id: string, ...UpdatePost): void;
 
+	@summary("마이페이지에 저장")
+	@tag("App")
+	@route("/{id}/save")
+	@patch
+	op like(@path id: string, ...UpdatePost): void;
+
+	@summary("마이페이지에서 저장 취소")
+	@tag("App")
+	@route("/{id}/unsave")
+	@patch
+	op unlike(@path id: string, ...UpdatePost): void;
+
 	@summary("조회수 증가")
 	@tag("App")
 	@route("/{id}/view")

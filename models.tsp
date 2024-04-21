@@ -94,6 +94,9 @@ model Post extends BasePost {
 
 	/** 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부 */
 	isLiked: boolean;
+
+	/** 현재 로그인된 사용자가 이미 마이페이지에 저장한 Post인지 여부 */
+	isSaved: boolean;
 }
 
 /** 기업 정보 */
