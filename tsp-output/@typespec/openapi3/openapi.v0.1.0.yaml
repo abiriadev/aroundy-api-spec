@@ -36,6 +36,14 @@ paths:
                         type: integer
                         format: uint64
                         description: 검색된 총 항목 수
+                      totalPages:
+                        type: integer
+                        format: uint64
+                        description: 총 페이지 갯수
+                      pageSize:
+                        type: integer
+                        format: uint64
+                        description: 현재 페이지에 포함된 항목 수
                       nextPage:
                         type: integer
                         format: uint64
@@ -51,9 +59,11 @@ paths:
                           다음 페이지에 나타날 항목 수
 
                           다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
-                          이미지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+                          다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
                     required:
                       - totalRecords
+                      - totalPages
+                      - pageSize
                       - nextPage
                       - nextRecords
                     description: 페이지 메타데이터
