@@ -112,14 +112,14 @@ model Company {
 	status: string;
 }
 
-/** 이벤트 유형 */
+/** 이벤트 유형
+ *
+ * - `online`: 온라인
+ * - `offline`: 오프라인
+ * - `both`: 온/오프라인
+ * */
 enum EventType {
-	/** 온라인 */
 	online,
-
-	/** 오프라인 */
 	offline,
-
-	/** 온/오프라인 */
 	both,
 }

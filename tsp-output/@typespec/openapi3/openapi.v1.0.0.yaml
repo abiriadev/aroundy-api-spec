@@ -509,7 +509,12 @@ components:
         - online
         - offline
         - both
-      description: 이벤트 유형
+      description: |-
+        이벤트 유형
+
+        - `online`: 온라인
+        - `offline`: 오프라인
+        - `both`: 온/오프라인
     Post:
       type: object
       required:
