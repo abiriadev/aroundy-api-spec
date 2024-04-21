@@ -143,35 +143,25 @@ namespace Posts {
 	@patch
 	op updatePost(@path id: Id, ...UpdatePost): Post;
 
-	@summary("좋아요 추가")
 	@tag("App")
 	@route("/{id}/like")
 	@patch
-	op like(@path id: Id): void;
+	op voidOp(@path id: Id): void;
+
+	@summary("좋아요 추가")
+	op like is voidOp;
 
 	@summary("좋아요 해제")
-	@tag("App")
-	@route("/{id}/unlike")
-	@patch
-	op unlike(@path id: Id): void;
+	op unlike is voidOp;
 
 	@summary("마이페이지에 저장")
-	@tag("App")
-	@route("/{id}/save")
-	@patch
-	op save(@path id: Id): void;
+	op save is voidOp;
 
 	@summary("마이페이지에서 저장 취소")
-	@tag("App")
-	@route("/{id}/unsave")
-	@patch
-	op unsave(@path id: Id): void;
+	op unsave is voidOp;
 
 	@summary("조회수 증가")
-	@tag("App")
-	@route("/{id}/view")
-	@patch
-	op view(@path id: Id): void;
+	op view is voidOp;
 
 	@summary("Post 삭제")
 	@delete
