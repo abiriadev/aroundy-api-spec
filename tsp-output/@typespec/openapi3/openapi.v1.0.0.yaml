@@ -12,6 +12,7 @@ paths:
         - App
       operationId: Posts_fetchPosts
       summary: Post 조회 및 검색
+      description: Post 목록을 추천 기준에 따라 조회 및 검색한다.
       parameters:
         - name: category
           in: query
@@ -99,6 +100,12 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          headers:
+            X-Total-Records:
+              required: true
+              schema:
+                type: integer
+                format: uint64
           content:
             application/json:
               schema:

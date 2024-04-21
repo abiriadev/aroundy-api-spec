@@ -50,6 +50,9 @@ namespace Posts {
 		nearest,
 	}
 
+	/**
+	 * Post 목록을 추천 기준에 따라 조회 및 검색한다.
+	 * */
 	@summary("Post 조회 및 검색")
 	@tag("App")
 	op fetchPosts(
@@ -111,7 +114,10 @@ namespace Posts {
 		 * - `false`: 진행 중인 이벤트만
 		 * */
 		@query ended?: boolean,
-	): Paginate<Post>;
+	): {
+		@header("X-Total-Records") totalRecords: uint64;
+		...Paginate<Post>;
+	};
 
 	@summary("새 Post 등록")
 	op createPost(...CreatePost): {
