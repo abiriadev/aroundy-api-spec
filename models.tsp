@@ -2,7 +2,7 @@ using TypeSpec.Http;
 
 /** 고유 ID */
 @format("uuid")
-scalar Id extends string;
+scalar id extends string;
 
 /** 항목 수 헤더 래퍼 */
 model TotalRecordsHeader<T> {
@@ -84,7 +84,7 @@ model BasePost {
 /** Post 생성 시 입력할 정보 */
 model CreatePost extends BasePost {
 	/** Post를 생성할 기업의 ID */
-	companyId: Id;
+	companyId: id;
 }
 
 /** Post 수정 시 입력할 정보 */
@@ -93,7 +93,7 @@ alias UpdatePost = OptionalProperties<BasePost>;
 /** Post 정보 */
 model Post extends BasePost {
 	/** Post의 고유 ID */
-	id: Id;
+	id: id;
 
 	/** Post를 등록한 기업 */
 	company: Company;
@@ -114,7 +114,7 @@ model Post extends BasePost {
 /** 기업 정보 */
 model Company {
 	/** 기업 고유 ID */
-	id: Id;
+	id: id;
 
 	/** 기업명 */
 	name: string;

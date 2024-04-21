@@ -141,12 +141,12 @@ namespace Posts {
 
 	@summary("Post 수정")
 	@patch
-	op updatePost(@path id: Id, ...UpdatePost): Post;
+	op updatePost(@path id: id, ...UpdatePost): Post;
 
 	@tag("App")
 	@route("/{id}/like")
 	@patch
-	op voidOp(@path id: Id): void;
+	op voidOp(@path id: id): void;
 
 	@summary("좋아요 추가")
 	op like is voidOp;
@@ -165,5 +165,5 @@ namespace Posts {
 
 	@summary("Post 삭제")
 	@delete
-	op deletePost(@path id: Id): Post;
+	op deletePost(@path id: id): Post;
 }
