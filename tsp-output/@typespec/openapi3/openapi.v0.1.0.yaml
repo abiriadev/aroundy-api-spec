@@ -188,6 +188,18 @@ paths:
                 - images
       security:
         - BearerAuth: []
+  /login/kakao:
+    get:
+      operationId: Login_kakao
+      summary: 카카오 로그인
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
   /posts:
     head:
       tags:

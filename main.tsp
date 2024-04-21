@@ -232,3 +232,10 @@ op uploadImage(
 	/** 업로드된 이미지 URL 배열 */
 	urls: url[];
 };
+
+@route("/login")
+namespace Login {
+	@summary("카카오 로그인")
+	@route("/kakao")
+	op kakao(): {};
+}
