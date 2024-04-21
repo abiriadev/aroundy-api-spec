@@ -31,8 +31,8 @@ namespace Posts {
 	op createPost(...CreatePost): Post;
 
 	@patch
-	op updatePost(...UpdatePost): Post;
+	op updatePost(@path id: string, ...UpdatePost): Post;
 
 	@delete
-	op deletePost(): Post;
+	op deletePost(@path id: string): Post;
 }

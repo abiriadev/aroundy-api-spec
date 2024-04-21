@@ -34,9 +34,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreatePost'
+  /posts/{id}:
     patch:
       operationId: Posts_updatePost
-      parameters: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: The request has succeeded.
@@ -103,7 +109,12 @@ paths:
               description: The template for adding optional properties.
     delete:
       operationId: Posts_deletePost
-      parameters: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: The request has succeeded.
