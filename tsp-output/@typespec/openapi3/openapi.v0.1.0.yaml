@@ -93,6 +93,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BaseCompany'
+      security:
+        - BearerAuth: []
   /companies/{id}:
     patch:
       operationId: Companies_updateCompany
@@ -124,6 +126,8 @@ paths:
                   type: boolean
                   description: 상태
               description: The template for adding optional properties.
+      security:
+        - BearerAuth: []
     delete:
       operationId: Companies_deleteCompany
       summary: 기업정보 삭제
@@ -136,10 +140,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Company'
+      security:
+        - BearerAuth: []
   /images/upload:
     post:
-      tags:
-        - App
       operationId: uploadImage
       summary: 이미지 업로드
       parameters: []
@@ -173,6 +177,8 @@ paths:
                   description: 업로드할 이미지 정보 배열
               required:
                 - images
+      security:
+        - BearerAuth: []
   /posts:
     head:
       tags:
@@ -294,6 +300,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreatePost'
+      security:
+        - BearerAuth: []
   /posts/{id}:
     patch:
       operationId: Posts_updatePost
@@ -364,6 +372,8 @@ paths:
                     type: string
                   description: 태그 목록
               description: The template for adding optional properties.
+      security:
+        - BearerAuth: []
     delete:
       operationId: Posts_deletePost
       summary: Post 삭제
@@ -376,6 +386,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+      security:
+        - BearerAuth: []
   /posts/{id}/like:
     patch:
       tags:
@@ -387,6 +399,8 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /posts/{id}/save:
     patch:
       tags:
@@ -398,6 +412,8 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /posts/{id}/unlike:
     patch:
       tags:
@@ -409,6 +425,8 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /posts/{id}/unsave:
     patch:
       tags:
@@ -420,6 +438,8 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /posts/{id}/view:
     patch:
       tags:
@@ -729,6 +749,10 @@ components:
       type: string
       format: uuid
       description: 고유 ID
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
 servers:
   - url: https://api.aroundy.teambigbox.com
     description: 엔드포인트

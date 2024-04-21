@@ -135,17 +135,20 @@ namespace Posts {
 	): TotalRecordsHeader<Paginate<Post>>;
 
 	@summary("새 Post 등록")
+	@useAuth(BearerAuth)
 	op createPost(...CreatePost): {
 		@statusCode _: 201;
 		...Post;
 	};
 
 	@summary("Post 수정")
+	@useAuth(BearerAuth)
 	@patch
 	op updatePost(...ById, ...UpdatePost): Post;
 
 	@summary("좋아요 추가")
 	@tag("App")
+	@useAuth(BearerAuth)
 	@route("/{id}/like")
 	@patch
 	op like(...ById): void;
@@ -163,10 +166,13 @@ namespace Posts {
 	op unsave is like;
 
 	@summary("조회수 증가")
+	@tag("App")
 	@route("/{id}/view")
-	op view is like;
+	@patch
+	op view(...ById): void;
 
 	@summary("Post 삭제")
+	@useAuth(BearerAuth)
 	@delete
 	op deletePost(...ById): Post;
 }
@@ -182,22 +188,25 @@ namespace Companies {
 	): TotalRecordsHeader<Paginate<Company>>;
 
 	@summary("새 기업 등록")
+	@useAuth(BearerAuth)
 	op createCompany(...BaseCompany): {
 		@statusCode _: 201;
 		...Company;
 	};
 
 	@summary("기업정보 수정")
+	@useAuth(BearerAuth)
 	@patch
 	op updateCompany(...ById, ...UpdateCompany): Company;
 
 	@summary("기업정보 삭제")
+	@useAuth(BearerAuth)
 	@delete
 	op deleteCompany(...ById): Company;
 }
 
 @summary("이미지 업로드")
-@tag("App")
+@useAuth(BearerAuth)
 @route("/images/upload")
 op uploadImage(
 	@header contentType: "multipart/form-data",
