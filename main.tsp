@@ -133,13 +133,13 @@ namespace Posts {
 	@tag("App")
 	@route("/{id}/save")
 	@patch
-	op like(@path id: string): void;
+	op save(@path id: string): void;
 
 	@summary("마이페이지에서 저장 취소")
 	@tag("App")
 	@route("/{id}/unsave")
 	@patch
-	op unlike(@path id: string): void;
+	op unsave(@path id: string): void;
 
 	@summary("조회수 증가")
 	@tag("App")
