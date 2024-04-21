@@ -60,7 +60,10 @@ namespace Posts {
 		@query sort?: SortOption,
 
 		/** 브랜드 한정 필터 */
-		@query companies?: string[],
+		@query({
+			format: "csv",
+		})
+		companies?: string[],
 
 		/** 최소 가격 필터
 		 *
@@ -95,7 +98,10 @@ namespace Posts {
 		 * - 전남
 		 * - 제주
 		 * */
-		@query location?: string[],
+		@query({
+			format: "csv",
+		})
+		location?: string[],
 
 		/**
 		 * 이벤트 상태 필터
