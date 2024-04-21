@@ -136,7 +136,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '200':
           description: The request has succeeded.
@@ -209,7 +209,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '200':
           description: The request has succeeded.
@@ -228,7 +228,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -243,7 +243,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -258,7 +258,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -273,7 +273,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -288,7 +288,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Id'
+            $ref: '#/components/schemas/id'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -460,7 +460,7 @@ components:
       properties:
         id:
           allOf:
-            - $ref: '#/components/schemas/Id'
+            - $ref: '#/components/schemas/id'
           description: 기업 고유 ID
         name:
           type: string
@@ -480,7 +480,7 @@ components:
       properties:
         companyId:
           allOf:
-            - $ref: '#/components/schemas/Id'
+            - $ref: '#/components/schemas/id'
           description: Post를 생성할 기업의 ID
       allOf:
         - $ref: '#/components/schemas/BasePost'
@@ -497,10 +497,6 @@ components:
         - `online`: 온라인
         - `offline`: 오프라인
         - `both`: 온/오프라인
-    Id:
-      type: string
-      format: uuid
-      description: 고유 ID
     Post:
       type: object
       required:
@@ -513,7 +509,7 @@ components:
       properties:
         id:
           allOf:
-            - $ref: '#/components/schemas/Id'
+            - $ref: '#/components/schemas/id'
           description: Post의 고유 ID
         company:
           allOf:
@@ -565,6 +561,10 @@ components:
       enum:
         - v0.1.0
         - v1.0.0
+    id:
+      type: string
+      format: uuid
+      description: 고유 ID
 servers:
   - url: https://api.aroundy.teambigbox.com
     description: 엔드포인트
