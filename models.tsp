@@ -91,7 +91,8 @@ model Company extends BaseCompany {
 	id: id;
 }
 
-/** 이벤트 유형
+/**
+ * 이벤트 유형
  *
  * - `online`: 온라인
  * - `offline`: 오프라인
@@ -101,4 +102,12 @@ enum EventType {
 	online,
 	offline,
 	both,
+}
+
+/**
+ * 이미지 업로드 정보
+ * */
+model Image {
+	filename: string;
+	image: bytes;
 }

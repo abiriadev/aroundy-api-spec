@@ -136,6 +136,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Company'
+  /images/upload:
+    post:
+      tags:
+        - App
+      operationId: uploadImage
+      summary: 이미지 업로드
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  urls:
+                    type: array
+                    items:
+                      type: string
+                      format: uri
+                    description: 업로드된 이미지 URL 배열
+                required:
+                  - urls
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Image'
+                  description: 업로드할 이미지 정보 배열
+              required:
+                - images
   /posts:
     head:
       tags:
@@ -612,6 +649,18 @@ components:
         - `online`: 온라인
         - `offline`: 오프라인
         - `both`: 온/오프라인
+    Image:
+      type: object
+      required:
+        - filename
+        - image
+      properties:
+        filename:
+          type: string
+        image:
+          type: string
+          format: byte
+      description: 이미지 업로드 정보
     Post:
       type: object
       required:

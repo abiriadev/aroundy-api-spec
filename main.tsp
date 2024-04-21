@@ -195,3 +195,18 @@ namespace Companies {
 	@delete
 	op deleteCompany(...ById): Company;
 }
+
+@summary("이미지 업로드")
+@tag("App")
+@route("/images/upload")
+op uploadImage(
+	@header contentType: "multipart/form-data",
+
+	/** 업로드할 이미지 정보 배열 */
+	images: Image[],
+): {
+	@statusCode _: 201;
+
+	/** 업로드된 이미지 URL 배열 */
+	urls: url[];
+};
