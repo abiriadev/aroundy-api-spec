@@ -126,6 +126,228 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+  /posts/{id}/like:
+    patch:
+      operationId: Posts_like
+      summary: 좋아요 추가
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 제목
+                category:
+                  type: string
+                  description: 카테고리
+                feeds:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  maxItems: 10
+                  description: 피드 배너 이미지 목록
+                caption:
+                  type: string
+                  maxLength: 2200
+                  description: Post 상세 내용
+                type:
+                  allOf:
+                    - $ref: '#/components/schemas/EventType'
+                  description: 이벤트 유형
+                location:
+                  type: string
+                  nullable: true
+                  description: 상세주소
+                contact:
+                  type: string
+                  nullable: true
+                  description: 연락처
+                startsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 오픈일
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 종료일
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                  description: 출처 링크
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: 태그 목록
+              description: The template for adding optional properties.
+  /posts/{id}/unlike:
+    patch:
+      operationId: Posts_unlike
+      summary: 좋아요 해제
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 제목
+                category:
+                  type: string
+                  description: 카테고리
+                feeds:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  maxItems: 10
+                  description: 피드 배너 이미지 목록
+                caption:
+                  type: string
+                  maxLength: 2200
+                  description: Post 상세 내용
+                type:
+                  allOf:
+                    - $ref: '#/components/schemas/EventType'
+                  description: 이벤트 유형
+                location:
+                  type: string
+                  nullable: true
+                  description: 상세주소
+                contact:
+                  type: string
+                  nullable: true
+                  description: 연락처
+                startsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 오픈일
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 종료일
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                  description: 출처 링크
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: 태그 목록
+              description: The template for adding optional properties.
+  /posts/{id}/view:
+    patch:
+      operationId: Posts_view
+      summary: 조회수 증가
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 제목
+                category:
+                  type: string
+                  description: 카테고리
+                feeds:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  maxItems: 10
+                  description: 피드 배너 이미지 목록
+                caption:
+                  type: string
+                  maxLength: 2200
+                  description: Post 상세 내용
+                type:
+                  allOf:
+                    - $ref: '#/components/schemas/EventType'
+                  description: 이벤트 유형
+                location:
+                  type: string
+                  nullable: true
+                  description: 상세주소
+                contact:
+                  type: string
+                  nullable: true
+                  description: 연락처
+                startsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 오픈일
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 종료일
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                  description: 출처 링크
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: 태그 목록
+              description: The template for adding optional properties.
 components:
   schemas:
     BasePost:
