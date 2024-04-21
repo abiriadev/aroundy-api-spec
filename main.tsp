@@ -53,12 +53,57 @@ namespace Posts {
 	@summary("Post 조회 및 검색")
 	@tag("App")
 	op fetchPosts(
+		/** 한정할 카테고리 */
 		@query category?: string,
+
+		/** 추천 기준 */
 		@query sort?: SortOption,
+
+		/** 브랜드 한정 필터 */
 		@query companies?: string[],
+
+		/** 최소 가격 필터
+		 *
+		 * 단위는 10k KRW
+		 * */
 		@query priceMin?: int64,
+
+		/** 최대 가격 필터
+		 *
+		 * 단위는 10k KRW
+		 * */
 		@query priceMax?: int64,
-		@query location?: string,
+
+		/** 지역 필터
+		 *
+		 * - 전체
+		 * - 서울
+		 * - 경기
+		 * - 인천
+		 * - 강원
+		 * - 세종
+		 * - 대전
+		 * - 충북
+		 * - 충남
+		 * - 부산
+		 * - 대구
+		 * - 울산
+		 * - 경북
+		 * - 경남
+		 * - 광주
+		 * - 전북
+		 * - 전남
+		 * - 제주
+		 * */
+		@query location?: string[],
+
+		/**
+		 * 이벤트 상태 필터
+		 *
+		 * - `undefined`: 상태 무관
+		 * - `true`: 종료된 이벤트만
+		 * - `false`: 진행 중인 이벤트만
+		 * */
 		@query ended?: boolean,
 	): Paginate<Post>;
 
