@@ -26,9 +26,42 @@ enum Versions {
 
 @route("/posts")
 namespace Posts {
+	/** Post 추천 기준 */
+	enum SortOption {
+		/** 추천순 */
+		recommended,
+
+		/** 게시순 */
+		latest,
+
+		/** 마감순 */
+		deadline,
+
+		/** 높은 할인순 */
+		higherDiscount,
+
+		/** 낮은 할인순 */
+		lowserDiscount,
+
+		/** 높은 가격순 */
+		higherPrice,
+
+		/** 낮은 가격순 */
+		lowserPrice,
+
+		/** 먼 거리순 */
+		farthest,
+
+		/** 가까운 거리순 */
+		nearest,
+	}
+
 	@summary("Post 조회 및 검색")
 	@tag("App")
-	op fetchPosts(): Paginate<Post>;
+	op fetchPosts(
+		@query category?: string,
+		@query sort?: SortOption,
+	): Paginate<Post>;
 
 	@summary("새 Post 등록")
 	op createPost(...CreatePost): {

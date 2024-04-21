@@ -12,7 +12,17 @@ paths:
         - App
       operationId: Posts_fetchPosts
       summary: Post 조회 및 검색
-      parameters: []
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Posts.SortOption'
       responses:
         '200':
           description: The request has succeeded.
@@ -531,6 +541,19 @@ components:
       allOf:
         - $ref: '#/components/schemas/BasePost'
       description: Post 정보
+    Posts.SortOption:
+      type: string
+      enum:
+        - recommended
+        - latest
+        - deadline
+        - higherDiscount
+        - lowserDiscount
+        - higherPrice
+        - lowserPrice
+        - farthest
+        - nearest
+      description: Post 추천 기준
     Versions:
       type: string
       enum:
