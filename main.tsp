@@ -173,3 +173,32 @@ namespace Posts {
 	@delete
 	op deletePost(...ById): Post;
 }
+
+@route("/companies")
+namespace Companies {
+	/**
+	 * 기업 목록을 추천 기준에 따라 조회 및 검색한다.
+	 * */
+	@summary("Post 조회 및 검색")
+	@tag("App")
+	op fetchCompanies(
+	): TotalRecordsHeader<Paginate<Company>>;
+
+	@summary("새 기업 등록")
+	op createCompany(...Company): {
+		@statusCode _: 201;
+		...Company;
+	};
+
+	model ById {
+		@path id: id;
+	}
+
+	@summary("기업정보 수정")
+	@patch
+	op updateCompany(...ById, ...UpdatePost): Company;
+
+	@summary("기업정보 삭제")
+	@delete
+	op deleteCompany(...ById): Company;
+}
