@@ -34,6 +34,32 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Post'
+    patch:
+      operationId: Posts_updatePost
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUpdate'
+    delete:
+      operationId: Posts_deletePost
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
 components:
   schemas:
     Company:
@@ -43,6 +69,24 @@ components:
         - name
         - logo
         - status
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 기업 고유 ID
+        name:
+          type: string
+          description: 기업명
+        logo:
+          type: string
+          format: uri
+          description: 기업 로고
+        status:
+          type: string
+          description: 상태
+      description: 기업 정보
+    CompanyUpdate:
+      type: object
       properties:
         id:
           type: string
@@ -99,6 +143,78 @@ components:
         company:
           allOf:
             - $ref: '#/components/schemas/Company'
+          description: Post를 등록한 기업
+        feeds:
+          type: array
+          items:
+            type: string
+            format: uri
+          maxItems: 10
+          description: 피드 배너 이미지 목록
+        caption:
+          type: string
+          maxLength: 2200
+          description: Post 상세 내용
+        type:
+          allOf:
+            - $ref: '#/components/schemas/EventType'
+          description: 이벤트 유형
+        location:
+          type: string
+          nullable: true
+          description: 상세주소
+        contact:
+          type: string
+          nullable: true
+          description: 연락처
+        startsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 오픈일
+        endsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 종료일
+        link:
+          type: string
+          format: uri
+          nullable: true
+          description: 출처 링크
+        tags:
+          type: array
+          items:
+            type: string
+          description: 태그 목록
+        likes:
+          type: integer
+          format: uint64
+          description: 좋아요 수
+        views:
+          type: integer
+          format: uint64
+          description: 조회수
+        isLiked:
+          type: boolean
+          description: 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부
+      description: Post 정보
+    PostUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Post의 고유 ID
+        title:
+          type: string
+          description: 제목
+        category:
+          type: string
+          description: 카테고리
+        company:
+          allOf:
+            - $ref: '#/components/schemas/CompanyUpdate'
           description: Post를 등록한 기업
         feeds:
           type: array

@@ -29,4 +29,10 @@ namespace Posts {
 	op fetchPosts(): Post[];
 
 	op createPost(...Post): Post;
+
+	@patch
+	op updatePost(...Post): Post;
+
+	@delete
+	op deletePost(): Post;
 }
