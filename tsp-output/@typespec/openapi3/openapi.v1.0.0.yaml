@@ -120,8 +120,8 @@ paths:
                   type: string
                   format: uri
                   description: 기업 로고
-                status:
-                  type: string
+                active:
+                  type: boolean
                   description: 상태
               description: The template for adding optional properties.
     delete:
@@ -498,7 +498,7 @@ components:
       required:
         - name
         - logo
-        - status
+        - active
       properties:
         name:
           type: string
@@ -507,8 +507,8 @@ components:
           type: string
           format: uri
           description: 기업 로고
-        status:
-          type: string
+        active:
+          type: boolean
           description: 상태
       description: 상속용 Company 클래스
     BasePost:

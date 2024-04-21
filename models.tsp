@@ -79,7 +79,7 @@ model BaseCompany {
 	logo: url;
 
 	/** 상태 */
-	status: string;
+	active: boolean;
 }
 
 /** 기업정보 수정 시 입력할 정보 */
