@@ -3,10 +3,13 @@ info:
   title: Aroundy
   description: Aroundy 앱 및 어드민 페이지 공용 API
   version: v0.1.0
-tags: []
+tags:
+  - name: App
 paths:
   /posts:
     get:
+      tags:
+        - App
       operationId: Posts_fetchPosts
       summary: Post 조회 및 검색
       parameters: []
@@ -128,6 +131,8 @@ paths:
                 $ref: '#/components/schemas/Post'
   /posts/{id}/like:
     patch:
+      tags:
+        - App
       operationId: Posts_like
       summary: 좋아요 추가
       parameters:
@@ -198,6 +203,8 @@ paths:
               description: The template for adding optional properties.
   /posts/{id}/unlike:
     patch:
+      tags:
+        - App
       operationId: Posts_unlike
       summary: 좋아요 해제
       parameters:
@@ -268,6 +275,8 @@ paths:
               description: The template for adding optional properties.
   /posts/{id}/view:
     patch:
+      tags:
+        - App
       operationId: Posts_view
       summary: 조회수 증가
       parameters:

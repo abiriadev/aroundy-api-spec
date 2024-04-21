@@ -27,6 +27,7 @@ enum Versions {
 @route("/posts")
 namespace Posts {
 	@summary("Post 조회 및 검색")
+	@tag("App")
 	op fetchPosts(): Post[];
 
 	@summary("새 Post 등록")
@@ -40,16 +41,19 @@ namespace Posts {
 	op updatePost(@path id: string, ...UpdatePost): Post;
 
 	@summary("좋아요 추가")
+	@tag("App")
 	@route("/{id}/like")
 	@patch
 	op like(@path id: string, ...UpdatePost): void;
 
 	@summary("좋아요 해제")
+	@tag("App")
 	@route("/{id}/unlike")
 	@patch
 	op unlike(@path id: string, ...UpdatePost): void;
 
 	@summary("조회수 증가")
+	@tag("App")
 	@route("/{id}/view")
 	@patch
 	op view(@path id: string, ...UpdatePost): void;
