@@ -19,9 +19,45 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Post'
+                type: object
+                required:
+                  - items
+                  - page
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                    description: 실제 데이터
+                  page:
+                    type: object
+                    properties:
+                      totalRecords:
+                        type: integer
+                        format: uint64
+                        description: 검색된 총 항목 수
+                      nextPage:
+                        type: integer
+                        format: uint64
+                        nullable: true
+                        description: |-
+                          다음 페이지 번호
+
+                          현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                      nextRecords:
+                        type: integer
+                        format: uint64
+                        description: |-
+                          다음 페이지에 나타날 항목 수
+
+                          다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                          이미지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+                    required:
+                      - totalRecords
+                      - nextPage
+                      - nextRecords
+                    description: 페이지 메타데이터
+                description: 페이징 메타데이터
     post:
       operationId: Posts_createPost
       summary: 새 Post 등록

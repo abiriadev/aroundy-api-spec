@@ -28,7 +28,7 @@ enum Versions {
 namespace Posts {
 	@summary("Post 조회 및 검색")
 	@tag("App")
-	op fetchPosts(): Post[];
+	op fetchPosts(): Paginate<Post>;
 
 	@summary("새 Post 등록")
 	op createPost(...CreatePost): {
