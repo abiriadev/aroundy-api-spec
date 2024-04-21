@@ -55,6 +55,11 @@ namespace Posts {
 	op fetchPosts(
 		@query category?: string,
 		@query sort?: SortOption,
+		@query companies?: string[],
+		@query priceMin?: int64,
+		@query priceMax?: int64,
+		@query location?: string,
+		@query ended?: boolean,
 	): Paginate<Post>;
 
 	@summary("새 Post 등록")
