@@ -8,6 +8,7 @@ paths:
   /posts:
     get:
       operationId: Posts_fetchPosts
+      summary: Post 조회 및 검색
       parameters: []
       responses:
         '200':
@@ -20,6 +21,7 @@ paths:
                   $ref: '#/components/schemas/Post'
     post:
       operationId: Posts_createPost
+      summary: 새 Post 등록
       parameters: []
       responses:
         '200':
@@ -37,6 +39,7 @@ paths:
   /posts/{id}:
     patch:
       operationId: Posts_updatePost
+      summary: Post 수정
       parameters:
         - name: id
           in: path
@@ -109,6 +112,7 @@ paths:
               description: The template for adding optional properties.
     delete:
       operationId: Posts_deletePost
+      summary: Post 삭제
       parameters:
         - name: id
           in: path

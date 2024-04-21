@@ -26,13 +26,17 @@ enum Versions {
 
 @route("/posts")
 namespace Posts {
+	@summary("Post 조회 및 검색")
 	op fetchPosts(): Post[];
 
+	@summary("새 Post 등록")
 	op createPost(...CreatePost): Post;
 
+	@summary("Post 수정")
 	@patch
 	op updatePost(@path id: string, ...UpdatePost): Post;
 
+	@summary("Post 삭제")
 	@delete
 	op deletePost(@path id: string): Post;
 }
