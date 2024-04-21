@@ -30,7 +30,10 @@ namespace Posts {
 	op fetchPosts(): Post[];
 
 	@summary("새 Post 등록")
-	op createPost(...CreatePost): Post;
+	op createPost(...CreatePost): {
+		@statusCode _: 201;
+		...Post;
+	};
 
 	@summary("Post 수정")
 	@patch

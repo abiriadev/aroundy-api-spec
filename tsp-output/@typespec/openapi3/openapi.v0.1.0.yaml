@@ -24,8 +24,8 @@ paths:
       summary: 새 Post 등록
       parameters: []
       responses:
-        '200':
-          description: The request has succeeded.
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
           content:
             application/json:
               schema:
