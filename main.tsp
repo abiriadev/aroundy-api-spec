@@ -50,35 +50,31 @@ namespace Posts {
 		nearest,
 	}
 
-	/**
-	 * Post 목록을 추천 기준에 따라 조회 및 검색한다.
-	 * */
-	@summary("Post 조회 및 검색")
-	@tag("App")
-	op fetchPosts(
+	/** 검색 옵션 */
+	model QueryOption {
 		/** 한정할 카테고리 */
-		@query category?: string,
+		@query category?: string;
 
 		/** 추천 기준 */
-		@query sort?: SortOption,
+		@query sort?: SortOption;
 
 		/** 브랜드 한정 필터 */
 		@query({
 			format: "csv",
 		})
-		companies?: string[],
+		companies?: string[];
 
 		/** 최소 가격 필터
 		 *
 		 * 단위는 10k KRW
 		 * */
-		@query priceMin?: uint64,
+		@query priceMin?: uint64;
 
 		/** 최대 가격 필터
 		 *
 		 * 단위는 10k KRW
 		 * */
-		@query priceMax?: uint64,
+		@query priceMax?: uint64;
 
 		/** 지역 필터
 		 *
@@ -104,7 +100,7 @@ namespace Posts {
 		@query({
 			format: "csv",
 		})
-		location?: string[],
+		location?: string[];
 
 		/**
 		 * 이벤트 상태 필터
@@ -113,11 +109,29 @@ namespace Posts {
 		 * - `true`: 종료된 이벤트만
 		 * - `false`: 진행 중인 이벤트만
 		 * */
-		@query ended?: boolean,
-	): {
-		@header("X-Total-Records") totalRecords: uint64;
-		...Paginate<Post>;
-	};
+		@query ended?: boolean;
+	}
+
+	/**
+	 * 주어진 필터로 검색된 Post 갯수를 보고한다.
+	 *
+	 * 실시간 검색 결과 버튼에서 사용한다.
+	 * */
+	@summary("Post 갯수 조회")
+	@tag("App")
+	@head
+	op preflightPosts(
+		...QueryOption,
+	): TotalRecordsHeader<{}>;
+
+	/**
+	 * Post 목록을 추천 기준에 따라 조회 및 검색한다.
+	 * */
+	@summary("Post 조회 및 검색")
+	@tag("App")
+	op fetchPosts(
+		...QueryOption,
+	): TotalRecordsHeader<Paginate<Post>>;
 
 	@summary("새 Post 등록")
 	op createPost(...CreatePost): {

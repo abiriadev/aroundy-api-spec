@@ -7,6 +7,33 @@ tags:
   - name: App
 paths:
   /posts:
+    head:
+      tags:
+        - App
+      operationId: Posts_preflightPosts
+      summary: Post 갯수 조회
+      description: |-
+        주어진 필터로 검색된 Post 갯수를 보고한다.
+
+        실시간 검색 결과 버튼에서 사용한다.
+      parameters:
+        - $ref: '#/components/parameters/Posts.QueryOption.category'
+        - $ref: '#/components/parameters/Posts.QueryOption.sort'
+        - $ref: '#/components/parameters/Posts.QueryOption.companies'
+        - $ref: '#/components/parameters/Posts.QueryOption.priceMin'
+        - $ref: '#/components/parameters/Posts.QueryOption.priceMax'
+        - $ref: '#/components/parameters/Posts.QueryOption.location'
+        - $ref: '#/components/parameters/Posts.QueryOption.ended'
+      responses:
+        '204':
+          description: 항목 수 헤더 래퍼
+          headers:
+            X-Total-Records:
+              required: true
+              description: 검색된 총 항목 수
+              schema:
+                type: integer
+                format: uint64
     get:
       tags:
         - App
@@ -14,95 +41,20 @@ paths:
       summary: Post 조회 및 검색
       description: Post 목록을 추천 기준에 따라 조회 및 검색한다.
       parameters:
-        - name: category
-          in: query
-          required: false
-          description: 한정할 카테고리
-          schema:
-            type: string
-        - name: sort
-          in: query
-          required: false
-          description: 추천 기준
-          schema:
-            $ref: '#/components/schemas/Posts.SortOption'
-        - name: companies
-          in: query
-          required: false
-          description: 브랜드 한정 필터
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: false
-        - name: priceMin
-          in: query
-          required: false
-          description: |-
-            최소 가격 필터
-
-            단위는 10k KRW
-          schema:
-            type: integer
-            format: uint64
-        - name: priceMax
-          in: query
-          required: false
-          description: |-
-            최대 가격 필터
-
-            단위는 10k KRW
-          schema:
-            type: integer
-            format: uint64
-        - name: location
-          in: query
-          required: false
-          description: |-
-            지역 필터
-
-            - 전체
-            - 서울
-            - 경기
-            - 인천
-            - 강원
-            - 세종
-            - 대전
-            - 충북
-            - 충남
-            - 부산
-            - 대구
-            - 울산
-            - 경북
-            - 경남
-            - 광주
-            - 전북
-            - 전남
-            - 제주
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: false
-        - name: ended
-          in: query
-          required: false
-          description: |-
-            이벤트 상태 필터
-
-            - `undefined`: 상태 무관
-            - `true`: 종료된 이벤트만
-            - `false`: 진행 중인 이벤트만
-          schema:
-            type: boolean
+        - $ref: '#/components/parameters/Posts.QueryOption.category'
+        - $ref: '#/components/parameters/Posts.QueryOption.sort'
+        - $ref: '#/components/parameters/Posts.QueryOption.companies'
+        - $ref: '#/components/parameters/Posts.QueryOption.priceMin'
+        - $ref: '#/components/parameters/Posts.QueryOption.priceMax'
+        - $ref: '#/components/parameters/Posts.QueryOption.location'
+        - $ref: '#/components/parameters/Posts.QueryOption.ended'
       responses:
         '200':
           description: The request has succeeded.
           headers:
             X-Total-Records:
               required: true
+              description: 검색된 총 항목 수
               schema:
                 type: integer
                 format: uint64
@@ -157,7 +109,7 @@ paths:
                       - nextPage
                       - nextRecords
                     description: 페이지 메타데이터
-                description: 페이징 메타데이터
+                description: 항목 수 헤더 래퍼
     post:
       operationId: Posts_createPost
       summary: 새 Post 등록
@@ -341,6 +293,97 @@ paths:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
 components:
+  parameters:
+    Posts.QueryOption.category:
+      name: category
+      in: query
+      required: false
+      description: 한정할 카테고리
+      schema:
+        type: string
+    Posts.QueryOption.companies:
+      name: companies
+      in: query
+      required: false
+      description: 브랜드 한정 필터
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+    Posts.QueryOption.ended:
+      name: ended
+      in: query
+      required: false
+      description: |-
+        이벤트 상태 필터
+
+        - `undefined`: 상태 무관
+        - `true`: 종료된 이벤트만
+        - `false`: 진행 중인 이벤트만
+      schema:
+        type: boolean
+    Posts.QueryOption.location:
+      name: location
+      in: query
+      required: false
+      description: |-
+        지역 필터
+
+        - 전체
+        - 서울
+        - 경기
+        - 인천
+        - 강원
+        - 세종
+        - 대전
+        - 충북
+        - 충남
+        - 부산
+        - 대구
+        - 울산
+        - 경북
+        - 경남
+        - 광주
+        - 전북
+        - 전남
+        - 제주
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+    Posts.QueryOption.priceMax:
+      name: priceMax
+      in: query
+      required: false
+      description: |-
+        최대 가격 필터
+
+        단위는 10k KRW
+      schema:
+        type: integer
+        format: uint64
+    Posts.QueryOption.priceMin:
+      name: priceMin
+      in: query
+      required: false
+      description: |-
+        최소 가격 필터
+
+        단위는 10k KRW
+      schema:
+        type: integer
+        format: uint64
+    Posts.QueryOption.sort:
+      name: sort
+      in: query
+      required: false
+      description: 추천 기준
+      schema:
+        $ref: '#/components/schemas/Posts.SortOption'
   schemas:
     BasePost:
       type: object
