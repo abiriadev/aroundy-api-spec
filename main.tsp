@@ -76,31 +76,31 @@ namespace Posts {
 	@tag("App")
 	@route("/{id}/like")
 	@patch
-	op like(@path id: string, ...UpdatePost): void;
+	op like(@path id: string): void;
 
 	@summary("좋아요 해제")
 	@tag("App")
 	@route("/{id}/unlike")
 	@patch
-	op unlike(@path id: string, ...UpdatePost): void;
+	op unlike(@path id: string): void;
 
 	@summary("마이페이지에 저장")
 	@tag("App")
 	@route("/{id}/save")
 	@patch
-	op like(@path id: string, ...UpdatePost): void;
+	op like(@path id: string): void;
 
 	@summary("마이페이지에서 저장 취소")
 	@tag("App")
 	@route("/{id}/unsave")
 	@patch
-	op unlike(@path id: string, ...UpdatePost): void;
+	op unlike(@path id: string): void;
 
 	@summary("조회수 증가")
 	@tag("App")
 	@route("/{id}/view")
 	@patch
-	op view(@path id: string, ...UpdatePost): void;
+	op view(@path id: string): void;
 
 	@summary("Post 삭제")
 	@delete
