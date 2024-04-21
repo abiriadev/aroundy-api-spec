@@ -4,6 +4,7 @@ import "@typespec/openapi3";
 import "@typespec/versioning";
 
 import "./models.tsp";
+import "./utils.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -139,10 +140,6 @@ namespace Posts {
 		...Post;
 	};
 
-	model ById {
-		@path id: id;
-	}
-
 	@summary("Post 수정")
 	@patch
 	op updatePost(...ById, ...UpdatePost): Post;
@@ -189,10 +186,6 @@ namespace Companies {
 		@statusCode _: 201;
 		...Company;
 	};
-
-	model ById {
-		@path id: id;
-	}
 
 	@summary("기업정보 수정")
 	@patch

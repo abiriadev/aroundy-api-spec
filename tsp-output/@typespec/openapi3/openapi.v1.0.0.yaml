@@ -98,7 +98,7 @@ paths:
       operationId: Companies_updateCompany
       summary: 기업정보 수정
       parameters:
-        - $ref: '#/components/parameters/Companies.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -167,7 +167,7 @@ paths:
       operationId: Companies_deleteCompany
       summary: 기업정보 삭제
       parameters:
-        - $ref: '#/components/parameters/Companies.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -301,7 +301,7 @@ paths:
       operationId: Posts_updatePost
       summary: Post 수정
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -370,7 +370,7 @@ paths:
       operationId: Posts_deletePost
       summary: Post 삭제
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '200':
           description: The request has succeeded.
@@ -385,7 +385,7 @@ paths:
       operationId: Posts_like
       summary: 좋아요 추가
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -396,7 +396,7 @@ paths:
       operationId: Posts_save
       summary: 마이페이지에 저장
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -407,7 +407,7 @@ paths:
       operationId: Posts_unlike
       summary: 좋아요 해제
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -418,7 +418,7 @@ paths:
       operationId: Posts_unsave
       summary: 마이페이지에서 저장 취소
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
@@ -429,19 +429,13 @@ paths:
       operationId: Posts_view
       summary: 조회수 증가
       parameters:
-        - $ref: '#/components/parameters/Posts.ById'
+        - $ref: '#/components/parameters/ById'
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
 components:
   parameters:
-    Companies.ById:
-      name: id
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/id'
-    Posts.ById:
+    ById:
       name: id
       in: path
       required: true
