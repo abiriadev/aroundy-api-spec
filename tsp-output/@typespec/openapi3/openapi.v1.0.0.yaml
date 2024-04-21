@@ -206,6 +206,7 @@ paths:
         - $ref: '#/components/parameters/Posts.QueryOption.priceMax'
         - $ref: '#/components/parameters/Posts.QueryOption.location'
         - $ref: '#/components/parameters/Posts.QueryOption.ended'
+        - $ref: '#/components/parameters/Posts.QueryOption.search'
       responses:
         '204':
           description: 항목 수 헤더 래퍼
@@ -230,6 +231,7 @@ paths:
         - $ref: '#/components/parameters/Posts.QueryOption.priceMax'
         - $ref: '#/components/parameters/Posts.QueryOption.location'
         - $ref: '#/components/parameters/Posts.QueryOption.ended'
+        - $ref: '#/components/parameters/Posts.QueryOption.search'
       responses:
         '200':
           description: The request has succeeded.
@@ -560,6 +562,16 @@ components:
       schema:
         type: integer
         format: uint64
+    Posts.QueryOption.search:
+      name: search
+      in: query
+      required: false
+      description: |-
+        검색어
+
+        초성 검색 지원
+      schema:
+        type: string
     Posts.QueryOption.sort:
       name: sort
       in: query
