@@ -33,7 +33,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Post'
+              $ref: '#/components/schemas/CreatePost'
     patch:
       operationId: Posts_updatePost
       parameters: []
@@ -49,7 +49,58 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostUpdate'
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 제목
+                category:
+                  type: string
+                  description: 카테고리
+                feeds:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  maxItems: 10
+                  description: 피드 배너 이미지 목록
+                caption:
+                  type: string
+                  maxLength: 2200
+                  description: Post 상세 내용
+                type:
+                  allOf:
+                    - $ref: '#/components/schemas/EventType'
+                  description: 이벤트 유형
+                location:
+                  type: string
+                  nullable: true
+                  description: 상세주소
+                contact:
+                  type: string
+                  nullable: true
+                  description: 연락처
+                startsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 오픈일
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 종료일
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                  description: 출처 링크
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: 태그 목록
+              description: The template for adding optional properties.
     delete:
       operationId: Posts_deletePost
       parameters: []
@@ -62,6 +113,71 @@ paths:
                 $ref: '#/components/schemas/Post'
 components:
   schemas:
+    BasePost:
+      type: object
+      required:
+        - title
+        - category
+        - feeds
+        - caption
+        - type
+        - location
+        - contact
+        - startsAt
+        - endsAt
+        - link
+        - tags
+      properties:
+        title:
+          type: string
+          description: 제목
+        category:
+          type: string
+          description: 카테고리
+        feeds:
+          type: array
+          items:
+            type: string
+            format: uri
+          maxItems: 10
+          description: 피드 배너 이미지 목록
+        caption:
+          type: string
+          maxLength: 2200
+          description: Post 상세 내용
+        type:
+          allOf:
+            - $ref: '#/components/schemas/EventType'
+          description: 이벤트 유형
+        location:
+          type: string
+          nullable: true
+          description: 상세주소
+        contact:
+          type: string
+          nullable: true
+          description: 연락처
+        startsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 오픈일
+        endsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 종료일
+        link:
+          type: string
+          format: uri
+          nullable: true
+          description: 출처 링크
+        tags:
+          type: array
+          items:
+            type: string
+          description: 태그 목록
+      description: 상속용 Post 클래스
     Company:
       type: object
       required:
@@ -85,24 +201,18 @@ components:
           type: string
           description: 상태
       description: 기업 정보
-    CompanyUpdate:
+    CreatePost:
       type: object
+      required:
+        - companyId
       properties:
-        id:
+        companyId:
           type: string
           format: uuid
-          description: 기업 고유 ID
-        name:
-          type: string
-          description: 기업명
-        logo:
-          type: string
-          format: uri
-          description: 기업 로고
-        status:
-          type: string
-          description: 상태
-      description: 기업 정보
+          description: Post를 생성할 기업의 ID
+      allOf:
+        - $ref: '#/components/schemas/BasePost'
+      description: Post 생성 시 입력할 정보
     EventType:
       type: string
       enum:
@@ -114,18 +224,7 @@ components:
       type: object
       required:
         - id
-        - title
-        - category
         - company
-        - feeds
-        - caption
-        - type
-        - location
-        - contact
-        - startsAt
-        - endsAt
-        - link
-        - tags
         - likes
         - views
         - isLiked
@@ -134,59 +233,10 @@ components:
           type: string
           format: uuid
           description: Post의 고유 ID
-        title:
-          type: string
-          description: 제목
-        category:
-          type: string
-          description: 카테고리
         company:
           allOf:
             - $ref: '#/components/schemas/Company'
           description: Post를 등록한 기업
-        feeds:
-          type: array
-          items:
-            type: string
-            format: uri
-          maxItems: 10
-          description: 피드 배너 이미지 목록
-        caption:
-          type: string
-          maxLength: 2200
-          description: Post 상세 내용
-        type:
-          allOf:
-            - $ref: '#/components/schemas/EventType'
-          description: 이벤트 유형
-        location:
-          type: string
-          nullable: true
-          description: 상세주소
-        contact:
-          type: string
-          nullable: true
-          description: 연락처
-        startsAt:
-          type: string
-          format: date-time
-          nullable: true
-          description: 오픈일
-        endsAt:
-          type: string
-          format: date-time
-          nullable: true
-          description: 종료일
-        link:
-          type: string
-          format: uri
-          nullable: true
-          description: 출처 링크
-        tags:
-          type: array
-          items:
-            type: string
-          description: 태그 목록
         likes:
           type: integer
           format: uint64
@@ -198,78 +248,8 @@ components:
         isLiked:
           type: boolean
           description: 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부
-      description: Post 정보
-    PostUpdate:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Post의 고유 ID
-        title:
-          type: string
-          description: 제목
-        category:
-          type: string
-          description: 카테고리
-        company:
-          allOf:
-            - $ref: '#/components/schemas/CompanyUpdate'
-          description: Post를 등록한 기업
-        feeds:
-          type: array
-          items:
-            type: string
-            format: uri
-          maxItems: 10
-          description: 피드 배너 이미지 목록
-        caption:
-          type: string
-          maxLength: 2200
-          description: Post 상세 내용
-        type:
-          allOf:
-            - $ref: '#/components/schemas/EventType'
-          description: 이벤트 유형
-        location:
-          type: string
-          nullable: true
-          description: 상세주소
-        contact:
-          type: string
-          nullable: true
-          description: 연락처
-        startsAt:
-          type: string
-          format: date-time
-          nullable: true
-          description: 오픈일
-        endsAt:
-          type: string
-          format: date-time
-          nullable: true
-          description: 종료일
-        link:
-          type: string
-          format: uri
-          nullable: true
-          description: 출처 링크
-        tags:
-          type: array
-          items:
-            type: string
-          description: 태그 목록
-        likes:
-          type: integer
-          format: uint64
-          description: 좋아요 수
-        views:
-          type: integer
-          format: uint64
-          description: 조회수
-        isLiked:
-          type: boolean
-          description: 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부
+      allOf:
+        - $ref: '#/components/schemas/BasePost'
       description: Post 정보
     Versions:
       type: string

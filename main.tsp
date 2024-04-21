@@ -28,10 +28,10 @@ enum Versions {
 namespace Posts {
 	op fetchPosts(): Post[];
 
-	op createPost(...Post): Post;
+	op createPost(...CreatePost): Post;
 
 	@patch
-	op updatePost(...Post): Post;
+	op updatePost(...UpdatePost): Post;
 
 	@delete
 	op deletePost(): Post;
