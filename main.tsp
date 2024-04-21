@@ -42,17 +42,17 @@ namespace Posts {
 	@summary("좋아요 추가")
 	@route("/{id}/like")
 	@patch
-	op like(@path id: string, ...UpdatePost): Post;
+	op like(@path id: string, ...UpdatePost): void;
 
 	@summary("좋아요 해제")
 	@route("/{id}/unlike")
 	@patch
-	op unlike(@path id: string, ...UpdatePost): Post;
+	op unlike(@path id: string, ...UpdatePost): void;
 
 	@summary("조회수 증가")
 	@route("/{id}/view")
 	@patch
-	op view(@path id: string, ...UpdatePost): Post;
+	op view(@path id: string, ...UpdatePost): void;
 
 	@summary("Post 삭제")
 	@delete

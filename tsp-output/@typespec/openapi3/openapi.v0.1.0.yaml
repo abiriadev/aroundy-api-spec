@@ -137,12 +137,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Post'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
       requestBody:
         required: true
         content:
@@ -211,12 +207,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Post'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
       requestBody:
         required: true
         content:
@@ -285,12 +277,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Post'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
       requestBody:
         required: true
         content:
