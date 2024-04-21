@@ -182,14 +182,14 @@ namespace Companies {
 	): TotalRecordsHeader<Paginate<Company>>;
 
 	@summary("새 기업 등록")
-	op createCompany(...Company): {
+	op createCompany(...BaseCompany): {
 		@statusCode _: 201;
 		...Company;
 	};
 
 	@summary("기업정보 수정")
 	@patch
-	op updateCompany(...ById, ...UpdatePost): Company;
+	op updateCompany(...ById, ...UpdateCompany): Company;
 
 	@summary("기업정보 삭제")
 	@delete

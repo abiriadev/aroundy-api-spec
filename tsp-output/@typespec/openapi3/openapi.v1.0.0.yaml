@@ -92,7 +92,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Company'
+              $ref: '#/components/schemas/BaseCompany'
   /companies/{id}:
     patch:
       operationId: Companies_updateCompany
@@ -113,55 +113,16 @@ paths:
             schema:
               type: object
               properties:
-                title:
+                name:
                   type: string
-                  description: 제목
-                category:
-                  type: string
-                  description: 카테고리
-                feeds:
-                  type: array
-                  items:
-                    type: string
-                    format: uri
-                  maxItems: 10
-                  description: 피드 배너 이미지 목록
-                caption:
-                  type: string
-                  maxLength: 2200
-                  description: Post 상세 내용
-                type:
-                  allOf:
-                    - $ref: '#/components/schemas/EventType'
-                  description: 이벤트 유형
-                location:
-                  type: string
-                  nullable: true
-                  description: 상세주소
-                contact:
-                  type: string
-                  nullable: true
-                  description: 연락처
-                startsAt:
-                  type: string
-                  format: date-time
-                  nullable: true
-                  description: 오픈일
-                endsAt:
-                  type: string
-                  format: date-time
-                  nullable: true
-                  description: 종료일
-                link:
+                  description: 기업명
+                logo:
                   type: string
                   format: uri
-                  nullable: true
-                  description: 출처 링크
-                tags:
-                  type: array
-                  items:
-                    type: string
-                  description: 태그 목록
+                  description: 기업 로고
+                status:
+                  type: string
+                  description: 상태
               description: The template for adding optional properties.
     delete:
       operationId: Companies_deleteCompany

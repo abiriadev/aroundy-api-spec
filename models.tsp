@@ -82,6 +82,9 @@ model BaseCompany {
 	status: string;
 }
 
+/** 기업정보 수정 시 입력할 정보 */
+alias UpdateCompany = OptionalProperties<BaseCompany>;
+
 /** 기업 정보 */
 model Company extends BaseCompany {
 	/** 기업 고유 ID */
