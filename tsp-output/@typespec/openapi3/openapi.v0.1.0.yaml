@@ -443,6 +443,121 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+  /users:
+    get:
+      tags:
+        - App
+      operationId: Users_fetchCompanies
+      summary: 기업 조회 및 검색
+      description: 기업 목록을 추천 기준에 따라 조회 및 검색한다.
+      parameters:
+        - name: search
+          in: query
+          required: false
+          description: |-
+            검색어
+
+            초성 검색 지원
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                  - page
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Company'
+                    description: 실제 데이터
+                  page:
+                    type: object
+                    properties:
+                      totalRecords:
+                        type: integer
+                        format: uint64
+                        description: 검색된 총 항목 수
+                      totalPages:
+                        type: integer
+                        format: uint64
+                        description: 총 페이지 갯수
+                      pageSize:
+                        type: integer
+                        format: uint64
+                        description: 현재 페이지에 포함된 항목 수
+                      nextPage:
+                        type: integer
+                        format: uint64
+                        nullable: true
+                        description: |-
+                          다음 페이지 번호
+
+                          현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                      nextRecords:
+                        type: integer
+                        format: uint64
+                        description: |-
+                          다음 페이지에 나타날 항목 수
+
+                          다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                          다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+                    required:
+                      - totalRecords
+                      - totalPages
+                      - pageSize
+                      - nextPage
+                      - nextRecords
+                    description: 페이지 메타데이터
+                description: 페이징 메타데이터
+  /users/{id}:
+    patch:
+      operationId: Users_updateUser
+      summary: 회원정보 수정
+      parameters:
+        - $ref: '#/components/parameters/ById'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 기업명
+                logo:
+                  type: string
+                  format: uri
+                  description: 기업 로고
+                active:
+                  type: boolean
+                  description: 상태
+              description: The template for adding optional properties.
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: Users_deleteUser
+      summary: 회원 탈퇴
+      parameters:
+        - $ref: '#/components/parameters/ById'
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
 components:
   parameters:
     ById:

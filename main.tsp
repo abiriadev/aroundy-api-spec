@@ -226,3 +226,30 @@ namespace Login {
 	@route("/kakao")
 	op kakao(): {};
 }
+
+@route("/users")
+namespace Users {
+	@summary("회원 조회 및 검색")
+	op fetchUsers(
+		/**
+		 * 검색어
+		 *
+		 * 초성 검색 지원
+		 * */
+		@query search?: string,
+	): Paginate<User>;
+
+	@summary("회원정보 수정")
+	@tag("App")
+	@useAuth(BearerAuth)
+	@patch
+	op updateUser(
+		...ById,
+		...OptionalProperties<User>,
+	): User;
+
+	@summary("회원 탈퇴")
+	@useAuth(BearerAuth)
+	@delete
+	op deleteUser(...ById): void;
+}
