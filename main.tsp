@@ -121,18 +121,6 @@ namespace Posts {
 	}
 
 	/**
-	 * 주어진 필터로 검색된 Post 갯수를 보고한다.
-	 *
-	 * 실시간 검색 결과 버튼에서 사용한다.
-	 * */
-	@summary("Post 갯수 조회")
-	@tag("App")
-	@head
-	op preflightPosts(
-		...QueryOption,
-	): TotalRecordsHeader<{}>;
-
-	/**
 	 * Post 목록을 추천 기준에 따라 조회 및 검색한다.
 	 * */
 	@summary("Post 조회 및 검색")
