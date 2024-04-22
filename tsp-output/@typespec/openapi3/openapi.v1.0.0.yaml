@@ -26,13 +26,6 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
-          headers:
-            X-Total-Records:
-              required: true
-              description: 검색된 총 항목 수
-              schema:
-                type: integer
-                format: uint64
           content:
             application/json:
               schema:
@@ -84,7 +77,7 @@ paths:
                       - nextPage
                       - nextRecords
                     description: 페이지 메타데이터
-                description: 항목 수 헤더 래퍼
+                description: 페이징 메타데이터
     post:
       operationId: Companies_createCompany
       summary: 새 기업 등록
@@ -219,13 +212,6 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
-          headers:
-            X-Total-Records:
-              required: true
-              description: 검색된 총 항목 수
-              schema:
-                type: integer
-                format: uint64
           content:
             application/json:
               schema:
@@ -277,7 +263,7 @@ paths:
                       - nextPage
                       - nextRecords
                     description: 페이지 메타데이터
-                description: 항목 수 헤더 래퍼
+                description: 페이징 메타데이터
     post:
       operationId: Posts_createPost
       summary: 새 Post 등록

@@ -125,9 +125,7 @@ namespace Posts {
 	 * */
 	@summary("Post 조회 및 검색")
 	@tag("App")
-	op fetchPosts(
-		...QueryOption,
-	): TotalRecordsHeader<Paginate<Post>>;
+	op fetchPosts(...QueryOption): Paginate<Post>;
 
 	@summary("새 Post 등록")
 	@useAuth(BearerAuth)
@@ -186,7 +184,7 @@ namespace Companies {
 		 * 초성 검색 지원
 		 * */
 		@query search?: string,
-	): TotalRecordsHeader<Paginate<Company>>;
+	): Paginate<Company>;
 
 	@summary("새 기업 등록")
 	@useAuth(BearerAuth)

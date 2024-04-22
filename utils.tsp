@@ -4,14 +4,6 @@ model ById {
 	@path id: id;
 }
 
-/** 항목 수 헤더 래퍼 */
-model TotalRecordsHeader<T> {
-	/** 검색된 총 항목 수 */
-	@header("X-Total-Records") totalRecords: uint64;
-
-	...T;
-}
-
 /** 페이징 메타데이터 */
 model Paginate<T> {
 	/** 실제 데이터 */
