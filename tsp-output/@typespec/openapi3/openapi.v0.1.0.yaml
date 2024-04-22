@@ -183,6 +183,8 @@ paths:
         - BearerAuth: []
   /login/kakao:
     get:
+      tags:
+        - App
       operationId: Login_kakao
       summary: 카카오 로그인
       parameters: []

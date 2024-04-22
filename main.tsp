@@ -219,6 +219,7 @@ op uploadImage(
 	urls: url[];
 };
 
+@tag("App")
 @route("/login")
 namespace Login {
 	@summary("카카오 로그인")
