@@ -120,3 +120,17 @@ model Image {
 	filename: string;
 	image: bytes;
 }
+
+/** 회원 정보 */
+model User {
+	/** 회원 고유 ID */
+	id: id;
+
+	/** 닉네임 */
+	name: string;
+
+	/** 이메일 */
+	@format("email")
+	@secret
+	email: string;
+}
