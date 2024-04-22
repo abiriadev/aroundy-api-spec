@@ -1,3 +1,5 @@
+import "./utils.tsp";
+
 /** 고유 ID */
 @format("uuid")
 scalar id extends string;
@@ -129,8 +131,17 @@ model User {
 	/** 닉네임 */
 	name: string;
 
+	/** 프로필 이미지 */
+	avatar: url;
+
 	/** 이메일 */
 	@format("email")
 	@secret
 	email: string;
+}
+
+/** 회원 프로필 정보 */
+model UserProfile extends User {
+	follows: Paginate<Company[]>;
+	saved: Paginate<Post[]>;
 }
