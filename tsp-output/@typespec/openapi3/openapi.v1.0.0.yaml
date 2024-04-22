@@ -445,11 +445,8 @@ paths:
           description: 'There is no content to send for this request, but the headers may be useful. '
   /users:
     get:
-      tags:
-        - App
-      operationId: Users_fetchCompanies
-      summary: 기업 조회 및 검색
-      description: 기업 목록을 추천 기준에 따라 조회 및 검색한다.
+      operationId: Users_fetchUsers
+      summary: 회원 조회 및 검색
       parameters:
         - name: search
           in: query
@@ -474,7 +471,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Company'
+                      $ref: '#/components/schemas/User'
                     description: 실제 데이터
                   page:
                     type: object
@@ -517,6 +514,8 @@ paths:
                 description: 페이징 메타데이터
   /users/{id}:
     patch:
+      tags:
+        - App
       operationId: Users_updateUser
       summary: 회원정보 수정
       parameters:
@@ -527,7 +526,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Company'
+                $ref: '#/components/schemas/User'
       requestBody:
         required: true
         content:
@@ -537,14 +536,15 @@ paths:
               properties:
                 name:
                   type: string
-                  description: 기업명
-                logo:
+                  description: 닉네임
+                avatar:
                   type: string
                   format: uri
-                  description: 기업 로고
-                active:
-                  type: boolean
-                  description: 상태
+                  description: 프로필 이미지
+                email:
+                  type: string
+                  format: email
+                  description: 이메일
               description: The template for adding optional properties.
       security:
         - BearerAuth: []
@@ -761,6 +761,24 @@ components:
             type: string
           description: 태그 목록
       description: 상속용 Post 클래스
+    BaseUser:
+      type: object
+      required:
+        - name
+        - avatar
+        - email
+      properties:
+        name:
+          type: string
+          description: 닉네임
+        avatar:
+          type: string
+          format: uri
+          description: 프로필 이미지
+        email:
+          type: string
+          format: email
+          description: 이메일
     Company:
       type: object
       required:
@@ -873,6 +891,131 @@ components:
         - `lowserPrice`: 낮은 가격순
         - `farthest`: 먼 거리순
         - `nearest`: 가까운 거리순
+    User:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 회원 고유 ID
+      allOf:
+        - $ref: '#/components/schemas/BaseUser'
+      description: 회원 정보
+    UserProfile:
+      type: object
+      required:
+        - follows
+        - saved
+      properties:
+        follows:
+          type: object
+          required:
+            - items
+            - page
+          properties:
+            items:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+              description: 실제 데이터
+            page:
+              type: object
+              properties:
+                totalRecords:
+                  type: integer
+                  format: uint64
+                  description: 검색된 총 항목 수
+                totalPages:
+                  type: integer
+                  format: uint64
+                  description: 총 페이지 갯수
+                pageSize:
+                  type: integer
+                  format: uint64
+                  description: 현재 페이지에 포함된 항목 수
+                nextPage:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: |-
+                    다음 페이지 번호
+
+                    현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                nextRecords:
+                  type: integer
+                  format: uint64
+                  description: |-
+                    다음 페이지에 나타날 항목 수
+
+                    다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                    다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+              required:
+                - totalRecords
+                - totalPages
+                - pageSize
+                - nextPage
+                - nextRecords
+              description: 페이지 메타데이터
+          description: 페이징 메타데이터
+        saved:
+          type: object
+          required:
+            - items
+            - page
+          properties:
+            items:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              description: 실제 데이터
+            page:
+              type: object
+              properties:
+                totalRecords:
+                  type: integer
+                  format: uint64
+                  description: 검색된 총 항목 수
+                totalPages:
+                  type: integer
+                  format: uint64
+                  description: 총 페이지 갯수
+                pageSize:
+                  type: integer
+                  format: uint64
+                  description: 현재 페이지에 포함된 항목 수
+                nextPage:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: |-
+                    다음 페이지 번호
+
+                    현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                nextRecords:
+                  type: integer
+                  format: uint64
+                  description: |-
+                    다음 페이지에 나타날 항목 수
+
+                    다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                    다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+              required:
+                - totalRecords
+                - totalPages
+                - pageSize
+                - nextPage
+                - nextRecords
+              description: 페이지 메타데이터
+          description: 페이징 메타데이터
+      allOf:
+        - $ref: '#/components/schemas/User'
+      description: 회원 프로필 정보
     Versions:
       type: string
       enum:

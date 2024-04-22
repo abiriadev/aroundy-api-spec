@@ -245,7 +245,7 @@ namespace Users {
 	@patch
 	op updateUser(
 		...ById,
-		...OptionalProperties<User>,
+		...OptionalProperties<BaseUser>,
 	): User;
 
 	@summary("회원 탈퇴")

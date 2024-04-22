@@ -123,11 +123,7 @@ model Image {
 	image: bytes;
 }
 
-/** 회원 정보 */
-model User {
-	/** 회원 고유 ID */
-	id: id;
-
+model BaseUser {
 	/** 닉네임 */
 	name: string;
 
@@ -138,6 +134,12 @@ model User {
 	@format("email")
 	@secret
 	email: string;
+}
+
+/** 회원 정보 */
+model User extends BaseUser {
+	/** 회원 고유 ID */
+	id: id;
 }
 
 /** 회원 프로필 정보 */
