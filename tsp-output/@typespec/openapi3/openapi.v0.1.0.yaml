@@ -358,11 +358,11 @@ paths:
                   format: uri
                   nullable: true
                   description: 출처 링크
-                tags:
+                tagIds:
                   type: array
                   items:
-                    type: string
-                  description: 태그 목록
+                    $ref: '#/components/schemas/id'
+                  description: 태그 id 목록
               description: The template for adding optional properties.
       security:
         - BearerAuth: []
@@ -722,7 +722,6 @@ components:
         - startsAt
         - endsAt
         - link
-        - tags
       properties:
         title:
           type: string
@@ -777,11 +776,6 @@ components:
           format: uri
           nullable: true
           description: 출처 링크
-        tags:
-          type: array
-          items:
-            type: string
-          description: 태그 목록
       description: 상속용 Post 클래스
     BaseUser:
       type: object
@@ -840,11 +834,17 @@ components:
       type: object
       required:
         - companyId
+        - tagIds
       properties:
         companyId:
           allOf:
             - $ref: '#/components/schemas/id'
           description: Post를 생성할 기업의 ID
+        tagIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/id'
+          description: 태그 id 목록
       allOf:
         - $ref: '#/components/schemas/BasePost'
       description: Post 생성 시 입력할 정보
@@ -930,6 +930,7 @@ components:
         - id
         - createAt
         - company
+        - tags
         - likes
         - views
         - isLiked
@@ -947,6 +948,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Company'
           description: Post를 등록한 기업
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: 태그 목록
         likes:
           type: integer
           format: uint64
@@ -988,6 +994,20 @@ components:
         - `lowserPrice`: 낮은 가격순
         - `farthest`: 먼 거리순
         - `nearest`: 가까운 거리순
+    Tag:
+      type: object
+      required:
+        - id
+        - displayName
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 태그 고유 ID
+        displayName:
+          type: string
+          description: 태그명
+      description: 태그 정보
     User:
       type: object
       required:

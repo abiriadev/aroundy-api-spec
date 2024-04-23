@@ -40,19 +40,24 @@ model BasePost {
 
 	/** 출처 링크 */
 	link: url | null;
-
-	/** 태그 목록 */
-	tags: string[];
 }
 
 /** Post 생성 시 입력할 정보 */
 model CreatePost extends BasePost {
 	/** Post를 생성할 기업의 ID */
 	companyId: id;
+
+	/** 태그 id 목록 */
+	tagIds: id[];
 }
 
 /** Post 수정 시 입력할 정보 */
-alias UpdatePost = OptionalProperties<BasePost>;
+alias UpdatePost = OptionalProperties<{
+	...BasePost;
+
+	/** 태그 id 목록 */
+	tagIds: id[];
+}>;
 
 /** Post 정보 */
 model Post extends BasePost {
@@ -64,6 +69,9 @@ model Post extends BasePost {
 
 	/** Post를 등록한 기업 */
 	company: Company;
+
+	/** 태그 목록 */
+	tags: Tag[];
 
 	/** 좋아요 수 */
 	likes: uint64;
