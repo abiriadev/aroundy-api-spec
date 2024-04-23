@@ -5,6 +5,7 @@ info:
   version: v1.0.0
 tags:
   - name: App
+  - name: Admin
 paths:
   /companies:
     get:
@@ -516,6 +517,7 @@ paths:
     patch:
       tags:
         - App
+        - Admin
       operationId: Users_updateUser
       summary: 회원정보 수정
       parameters:

@@ -241,6 +241,7 @@ namespace Users {
 
 	@summary("회원정보 수정")
 	@tag("App")
+	@tag("Admin")
 	@useAuth(BearerAuth)
 	@patch
 	op updateUser(

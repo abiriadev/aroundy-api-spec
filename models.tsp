@@ -124,16 +124,38 @@ model Image {
 }
 
 model BaseUser {
-	/** 닉네임 */
+	/** 사용자 실명 */
+	@secret
 	name: string;
 
 	/** 프로필 이미지 */
 	avatar: url;
 
+	/** 회원 성별 */
+	@secret
+	gender: Gender | null;
+
+	/** 사용한 소셜 로그인 서비스 */
+	oAuthProvider: string;
+
 	/** 이메일 */
 	@format("email")
 	@secret
-	email: string;
+	email: string | null;
+
+	/** 전화번호 */
+	@secret
+	telephone: string | null;
+
+	/** 생년월일 */
+	@secret
+	birth: plainDate | null;
+
+	/** 회원 가입일 */
+	createAt: utcDateTime;
+
+	/** 마지막 로그인 시점 */
+	lastLogin: utcDateTime;
 }
 
 /** 회원 정보 */
@@ -146,4 +168,17 @@ model User extends BaseUser {
 model UserProfile extends User {
 	follows: Paginate<Company[]>;
 	saved: Paginate<Post[]>;
+}
+
+/**
+ * 회원 성별
+ *
+ * - `Woman`: 여성
+ * - `Man`: 남성
+ * - `Other`: 기타
+ */
+enum Gender {
+	Woman,
+	Man,
+	Other,
 }
