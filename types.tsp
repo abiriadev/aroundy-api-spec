@@ -51,3 +51,43 @@ enum SortOption {
 	farthest,
 	nearest,
 }
+
+/** 지역 값
+ *
+ * - 서울
+ * - 경기
+ * - 인천
+ * - 강원
+ * - 세종
+ * - 대전
+ * - 충북
+ * - 충남
+ * - 부산
+ * - 대구
+ * - 울산
+ * - 경북
+ * - 경남
+ * - 광주
+ * - 전북
+ * - 전남
+ * - 제주
+ */
+enum Location {
+	Seoul,
+	Gyeonggi,
+	Incheon,
+	Gangwon,
+	Sejong,
+	Daejeon,
+	Chungbuk,
+	Chungnam,
+	Busan,
+	Daegu,
+	Ulsan,
+	Gyeongbuk,
+	Gyeongnam,
+	Gwangju,
+	Jeonbuk,
+	Jeonnam,
+	Jeju,
+}

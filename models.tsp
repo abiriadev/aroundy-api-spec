@@ -1,4 +1,5 @@
 import "./utils.tsp";
+import "./types.tsp";
 
 /** 상속용 Post 클래스 */
 model BasePost {

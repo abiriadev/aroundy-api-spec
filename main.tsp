@@ -41,43 +41,31 @@ namespace Posts {
 		})
 		companies?: string[];
 
-		/** 최소 가격 필터
+		/**
+		 * 최소 가격 필터
 		 *
 		 * 단위는 10k KRW
-		 * */
+		 */
 		@query priceMin?: uint64;
 
-		/** 최대 가격 필터
+		/**
+		 * 최대 가격 필터
 		 *
 		 * 단위는 10k KRW
-		 * */
+		 */
 		@query priceMax?: uint64;
 
-		/** 지역 필터
+		/**
+		 * 지역 필터
 		 *
-		 * - 전체
-		 * - 서울
-		 * - 경기
-		 * - 인천
-		 * - 강원
-		 * - 세종
-		 * - 대전
-		 * - 충북
-		 * - 충남
-		 * - 부산
-		 * - 대구
-		 * - 울산
-		 * - 경북
-		 * - 경남
-		 * - 광주
-		 * - 전북
-		 * - 전남
-		 * - 제주
-		 * */
+		 * 아무 값도 없을 때는 지역 무관
+		 *
+		 * 지역은 여러 개 선택 가능
+		 */
 		@query({
 			format: "csv",
 		})
-		location?: string[];
+		location?: Location[];
 
 		/**
 		 * 이벤트 상태 필터
@@ -85,14 +73,14 @@ namespace Posts {
 		 * - `undefined`: 상태 무관
 		 * - `true`: 종료된 이벤트만
 		 * - `false`: 진행 중인 이벤트만
-		 * */
+		 */
 		@query ended?: boolean;
 
 		/**
 		 * 검색어
 		 *
 		 * 초성 검색 지원
-		 * */
+		 */
 		@query search?: string;
 	}
 

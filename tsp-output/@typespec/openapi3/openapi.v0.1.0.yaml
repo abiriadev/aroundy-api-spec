@@ -640,28 +640,13 @@ components:
       description: |-
         지역 필터
 
-        - 전체
-        - 서울
-        - 경기
-        - 인천
-        - 강원
-        - 세종
-        - 대전
-        - 충북
-        - 충남
-        - 부산
-        - 대구
-        - 울산
-        - 경북
-        - 경남
-        - 광주
-        - 전북
-        - 전남
-        - 제주
+        아무 값도 없을 때는 지역 무관
+
+        지역은 여러 개 선택 가능
       schema:
         type: array
         items:
-          type: string
+          $ref: '#/components/schemas/Location'
       style: form
       explode: false
     Posts.QueryOption.priceMax:
@@ -702,7 +687,7 @@ components:
       required: false
       description: 추천 기준
       schema:
-        $ref: '#/components/schemas/Posts.SortOption'
+        $ref: '#/components/schemas/SortOption'
   schemas:
     BaseCompany:
       type: object
@@ -899,6 +884,46 @@ components:
           type: string
           format: byte
       description: 이미지 업로드 정보
+    Location:
+      type: string
+      enum:
+        - Seoul
+        - Gyeonggi
+        - Incheon
+        - Gangwon
+        - Sejong
+        - Daejeon
+        - Chungbuk
+        - Chungnam
+        - Busan
+        - Daegu
+        - Ulsan
+        - Gyeongbuk
+        - Gyeongnam
+        - Gwangju
+        - Jeonbuk
+        - Jeonnam
+        - Jeju
+      description: |-
+        지역 값
+
+        - 서울
+        - 경기
+        - 인천
+        - 강원
+        - 세종
+        - 대전
+        - 충북
+        - 충남
+        - 부산
+        - 대구
+        - 울산
+        - 경북
+        - 경남
+        - 광주
+        - 전북
+        - 전남
+        - 제주
     Post:
       type: object
       required:
@@ -939,7 +964,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/BasePost'
       description: Post 정보
-    Posts.SortOption:
+    SortOption:
       type: string
       enum:
         - recommended
