@@ -76,9 +76,7 @@ namespace Posts {
 		@query search?: string;
 	}
 
-	/**
-	 * Post 목록을 추천 기준에 따라 조회 및 검색한다.
-	 * */
+	/** Post 목록을 추천 기준에 따라 조회 및 검색한다. */
 	@summary("Post 조회 및 검색")
 	@tag("App")
 	op fetchPosts(...QueryOption): Paginate<Post>;
@@ -128,9 +126,7 @@ namespace Posts {
 
 @route("/companies")
 namespace Companies {
-	/**
-	 * 기업 목록을 추천 기준에 따라 조회 및 검색한다.
-	 * */
+	/** 기업 목록을 추천 기준에 따라 조회 및 검색한다. */
 	@summary("기업 조회 및 검색")
 	@tag("App")
 	op fetchCompanies(
@@ -138,7 +134,7 @@ namespace Companies {
 		 * 검색어
 		 *
 		 * 초성 검색 지원
-		 * */
+		 */
 		@query search?: string,
 	): Paginate<Company>;
 
@@ -191,7 +187,7 @@ namespace Users {
 		 * 검색어
 		 *
 		 * 초성 검색 지원
-		 * */
+		 */
 		@query search?: string,
 	): Paginate<User>;
 
@@ -213,4 +209,17 @@ namespace Users {
 	@useAuth(BearerAuth)
 	@delete
 	op deleteUser(...ById): void;
+}
+
+@route("/tags")
+namespace Tags {
+	@summary("태그 조회 및 검색")
+	op fetchTags(
+		/**
+		 * 검색어
+		 *
+		 * 초성 검색 지원
+		 */
+		@query search?: string,
+	): Paginate<Tag>;
 }
