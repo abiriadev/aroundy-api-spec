@@ -28,7 +28,7 @@ enum Versions {
 @route("/posts")
 namespace Posts {
 	/** 검색 옵션 */
-	model QueryOption {
+	model QueryOption extends SearchByName {
 		/** 한정할 카테고리 */
 		@query category?: string;
 
@@ -67,13 +67,6 @@ namespace Posts {
 		 * - `false`: 진행 중인 이벤트만
 		 */
 		@query ended?: boolean;
-
-		/**
-		 * 검색어
-		 *
-		 * 초성 검색 지원
-		 */
-		@query search?: string;
 	}
 
 	/** Post 목록을 추천 기준에 따라 조회 및 검색한다. */
@@ -129,14 +122,7 @@ namespace Companies {
 	/** 기업 목록을 추천 기준에 따라 조회 및 검색한다. */
 	@summary("기업 조회 및 검색")
 	@tag("App")
-	op fetchCompanies(
-		/**
-		 * 검색어
-		 *
-		 * 초성 검색 지원
-		 */
-		@query search?: string,
-	): Paginate<Company>;
+	op fetchCompanies(...SearchByName): Paginate<Company>;
 
 	@summary("새 기업 등록")
 	@useAuth(BearerAuth)
@@ -182,14 +168,7 @@ namespace Login {
 @route("/users")
 namespace Users {
 	@summary("회원 조회 및 검색")
-	op fetchUsers(
-		/**
-		 * 검색어
-		 *
-		 * 초성 검색 지원
-		 */
-		@query search?: string,
-	): Paginate<User>;
+	op fetchUsers(...SearchByName): Paginate<User>;
 
 	@summary("단일 회원정보 조회")
 	@useAuth(BearerAuth)
@@ -214,12 +193,5 @@ namespace Users {
 @route("/tags")
 namespace Tags {
 	@summary("태그 조회 및 검색")
-	op fetchTags(
-		/**
-		 * 검색어
-		 *
-		 * 초성 검색 지원
-		 */
-		@query search?: string,
-	): Paginate<Tag>;
+	op fetchTags(...SearchByName): Paginate<Tag>;
 }

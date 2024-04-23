@@ -11,6 +11,16 @@ model ById {
 	@path id: id;
 }
 
+/** 이름으로 검색하는 쿼리 */
+model SearchByName {
+	/**
+	 * 검색어
+	 *
+	 * 초성 검색 지원
+	 */
+	@query search?: string;
+}
+
 /** 페이징 메타데이터 */
 model Paginate<T> {
 	/** 실제 데이터 */
