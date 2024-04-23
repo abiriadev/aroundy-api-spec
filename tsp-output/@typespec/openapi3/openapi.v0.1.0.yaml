@@ -536,17 +536,27 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                  description: 닉네임
-                avatar:
-                  type: string
-                  format: uri
-                  description: 프로필 이미지
+                gender:
+                  oneOf:
+                    - $ref: '#/components/schemas/Gender'
+                  nullable: true
+                  description: 회원 성별
                 email:
                   type: string
                   format: email
                   description: 이메일
+                telephone:
+                  type: string
+                  nullable: true
+                  description: 전화번호
+                birth:
+                  type: string
+                  format: date
+                  nullable: true
+                  description: 생년월일
+                name:
+                  type: string
+                  description: 사용자 실명
               description: The template for adding optional properties.
       security:
         - BearerAuth: []
@@ -766,21 +776,44 @@ components:
     BaseUser:
       type: object
       required:
-        - name
-        - avatar
+        - gender
         - email
+        - telephone
+        - birth
       properties:
-        name:
-          type: string
-          description: 닉네임
-        avatar:
-          type: string
-          format: uri
-          description: 프로필 이미지
+        gender:
+          oneOf:
+            - $ref: '#/components/schemas/Gender'
+          nullable: true
+          description: 회원 성별
         email:
           type: string
           format: email
           description: 이메일
+        telephone:
+          type: string
+          nullable: true
+          description: 전화번호
+        birth:
+          type: string
+          format: date
+          nullable: true
+          description: 생년월일
+      allOf:
+        - $ref: '#/components/schemas/BaseUserProfile'
+      description: |-
+        상속용 User 클래스
+
+        주로 사용자가 회원가입 후 추가적으로 입력하는 개인정보들이 포함된다.
+    BaseUserProfile:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: 사용자 실명
+      description: 상속용 UserProfile 클래스
     Company:
       type: object
       required:
@@ -817,6 +850,18 @@ components:
         - `online`: 온라인
         - `offline`: 오프라인
         - `both`: 온/오프라인
+    Gender:
+      type: string
+      enum:
+        - Woman
+        - Man
+        - Other
+      description: |-
+        회원 성별
+
+        - `Woman`: 여성
+        - `Man`: 남성
+        - `Other`: 기타
     Image:
       type: object
       required:
@@ -897,20 +942,39 @@ components:
       type: object
       required:
         - id
+        - oAuthProvider
+        - createAt
+        - lastLogin
       properties:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
           description: 회원 고유 ID
+        oAuthProvider:
+          type: string
+          description: 사용한 소셜 로그인 서비스
+        createAt:
+          type: string
+          format: date-time
+          description: 회원 가입일
+        lastLogin:
+          type: string
+          format: date-time
+          description: 마지막 로그인 시점
       allOf:
         - $ref: '#/components/schemas/BaseUser'
       description: 회원 정보
     UserProfile:
       type: object
       required:
+        - id
         - follows
         - saved
       properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 회원 고유 ID
         follows:
           type: object
           required:
@@ -962,7 +1026,7 @@ components:
                 - nextPage
                 - nextRecords
               description: 페이지 메타데이터
-          description: 페이징 메타데이터
+          description: 사용자가 팔로우 중인 기업 목록
         saved:
           type: object
           required:
@@ -1014,10 +1078,13 @@ components:
                 - nextPage
                 - nextRecords
               description: 페이지 메타데이터
-          description: 페이징 메타데이터
+          description: 사용자가 저장한 포스트 목록
       allOf:
-        - $ref: '#/components/schemas/User'
-      description: 회원 프로필 정보
+        - $ref: '#/components/schemas/BaseUserProfile'
+      description: |-
+        회원 프로필 정보
+
+        프로필 페이지에 보여줄 정보들이 포함된다.
     Versions:
       type: string
       enum:

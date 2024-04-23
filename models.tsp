@@ -123,30 +123,39 @@ model Image {
 	image: bytes;
 }
 
-model BaseUser {
+/** 상속용 UserProfile 클래스 */
+model BaseUserProfile {
 	/** 사용자 실명 */
-	@secret
 	name: string;
+}
 
+/**
+ * 상속용 User 클래스
+ *
+ * 주로 사용자가 회원가입 후 추가적으로 입력하는 개인정보들이 포함된다.
+ */
+model BaseUser extends BaseUserProfile {
 	/** 회원 성별 */
-	@secret
 	gender: Gender | null;
-
-	/** 사용한 소셜 로그인 서비스 */
-	oAuthProvider: string;
 
 	/** 이메일 */
 	@format("email")
-	@secret
-	email: string | null;
+	email: string;
 
 	/** 전화번호 */
-	@secret
 	telephone: string | null;
 
 	/** 생년월일 */
-	@secret
 	birth: plainDate | null;
+}
+
+/** 회원 정보 */
+model User extends BaseUser {
+	/** 회원 고유 ID */
+	id: id;
+
+	/** 사용한 소셜 로그인 서비스 */
+	oAuthProvider: string;
 
 	/** 회원 가입일 */
 	createAt: utcDateTime;
@@ -155,15 +164,22 @@ model BaseUser {
 	lastLogin: utcDateTime;
 }
 
-/** 회원 정보 */
-model User extends BaseUser {
+/** User 수정 시 입력할 정보 */
+alias UpdateUser = OptionalProperties<BaseUser>;
+
+/**
+ * 회원 프로필 정보
+ *
+ * 프로필 페이지에 보여줄 정보들이 포함된다.
+ */
+model UserProfile extends BaseUserProfile {
 	/** 회원 고유 ID */
 	id: id;
-}
 
-/** 회원 프로필 정보 */
-model UserProfile extends User {
+	/** 사용자가 팔로우 중인 기업 목록 */
 	follows: Paginate<Company[]>;
+
+	/** 사용자가 저장한 포스트 목록 */
 	saved: Paginate<Post[]>;
 }
 
