@@ -61,8 +61,7 @@ alias UpdatePost = OptionalProperties<{
 
 /** Post 정보 */
 model Post extends BasePost {
-	/** Post의 고유 ID */
-	id: id;
+	...Identifiable;
 
 	/** 게시일 */
 	createAt: utcDateTime;
@@ -103,8 +102,7 @@ alias UpdateCompany = OptionalProperties<BaseCompany>;
 
 /** 기업 정보 */
 model Company extends BaseCompany {
-	/** 기업 고유 ID */
-	id: id;
+	...Identifiable;
 }
 
 /** 이미지 업로드 정보 */
@@ -114,10 +112,7 @@ model Image {
 }
 
 /** 태그 정보 */
-model Tag {
-	/** 태그 고유 ID */
-	id: id;
-
+model Tag extends Identifiable {
 	/** 태그명 */
 	displayName: string;
 }
@@ -150,8 +145,7 @@ model BaseUser extends BaseUserProfile {
 
 /** 회원 정보 */
 model User extends BaseUser {
-	/** 회원 고유 ID */
-	id: id;
+	...Identifiable;
 
 	/** 사용한 소셜 로그인 서비스 */
 	oAuthProvider: string;
@@ -172,8 +166,7 @@ alias UpdateUser = OptionalProperties<BaseUser>;
  * 프로필 페이지에 보여줄 정보들이 포함된다.
  */
 model UserProfile extends BaseUserProfile {
-	/** 회원 고유 ID */
-	id: id;
+	...Identifiable;
 
 	/** 사용자가 팔로우 중인 기업 목록 */
 	follows: Paginate<Company[]>;

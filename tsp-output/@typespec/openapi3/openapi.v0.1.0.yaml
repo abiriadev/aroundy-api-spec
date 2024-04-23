@@ -814,7 +814,7 @@ components:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
-          description: 기업 고유 ID
+          description: 고유 ID
       allOf:
         - $ref: '#/components/schemas/BaseCompany'
       description: 기업 정보
@@ -860,6 +860,15 @@ components:
         - `Woman`: 여성
         - `Man`: 남성
         - `Other`: 기타
+    Identifiable:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 고유 ID
     Image:
       type: object
       required:
@@ -927,7 +936,7 @@ components:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
-          description: Post의 고유 ID
+          description: 고유 ID
         createAt:
           type: string
           format: date-time
@@ -985,16 +994,13 @@ components:
     Tag:
       type: object
       required:
-        - id
         - displayName
       properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/id'
-          description: 태그 고유 ID
         displayName:
           type: string
           description: 태그명
+      allOf:
+        - $ref: '#/components/schemas/Identifiable'
       description: 태그 정보
     User:
       type: object
@@ -1007,7 +1013,7 @@ components:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
-          description: 회원 고유 ID
+          description: 고유 ID
         oAuthProvider:
           type: string
           description: 사용한 소셜 로그인 서비스
@@ -1032,7 +1038,7 @@ components:
         id:
           allOf:
             - $ref: '#/components/schemas/id'
-          description: 회원 고유 ID
+          description: 고유 ID
         follows:
           type: object
           required:

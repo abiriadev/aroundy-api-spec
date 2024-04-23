@@ -1,4 +1,11 @@
+import "./types.tsp";
+
 using TypeSpec.Http;
+
+model Identifiable {
+	/** 고유 ID */
+	id: id;
+}
 
 model ById {
 	@path id: id;
