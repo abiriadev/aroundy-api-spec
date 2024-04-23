@@ -72,9 +72,11 @@ namespace Posts {
 	/** Post 목록을 추천 기준에 따라 조회 및 검색한다. */
 	@summary("Post 조회 및 검색")
 	@tag("App")
+	@tag("Admin")
 	op fetchPosts(...QueryOption): Paginate<Post>;
 
 	@summary("새 Post 등록")
+	@tag("Admin")
 	@useAuth(BearerAuth)
 	op createPost(...CreatePost): {
 		@statusCode _: 201;
@@ -82,6 +84,7 @@ namespace Posts {
 	};
 
 	@summary("Post 수정")
+	@tag("Admin")
 	@useAuth(BearerAuth)
 	@patch
 	op updatePost(...ById, ...UpdatePost): Post;
@@ -112,11 +115,13 @@ namespace Posts {
 	op view(...ById): void;
 
 	@summary("Post 삭제")
+	@tag("Admin")
 	@useAuth(BearerAuth)
 	@delete
 	op deletePost(...ById): Post;
 }
 
+@tag("Admin")
 @route("/companies")
 namespace Companies {
 	/** 기업 목록을 추천 기준에 따라 조회 및 검색한다. */
@@ -143,6 +148,7 @@ namespace Companies {
 }
 
 @summary("이미지 업로드")
+@tag("Admin")
 @useAuth(BearerAuth)
 @route("/images/upload")
 op uploadImage(
@@ -168,23 +174,28 @@ namespace Login {
 @route("/users")
 namespace Users {
 	@summary("회원 조회 및 검색")
+	@tag("Admin")
 	op fetchUsers(...SearchByName): Paginate<User>;
 
 	@summary("단일 회원정보 조회")
+	@tag("App")
 	@useAuth(BearerAuth)
 	op fetchUser(...ById): User;
 
 	@summary("회원 프로필 정보 조회")
+	@tag("App")
 	@useAuth(BearerAuth)
 	@route("/{id}/profile")
 	op profile(...ById): UserProfile;
 
 	@summary("회원 개인정보 수정")
+	@tag("App")
 	@useAuth(BearerAuth)
 	@patch
 	op updateUser(...ById, ...UpdateUser): User;
 
 	@summary("회원 탈퇴")
+	@tag("App")
 	@useAuth(BearerAuth)
 	@delete
 	op deleteUser(...ById): void;
@@ -193,5 +204,7 @@ namespace Users {
 @route("/tags")
 namespace Tags {
 	@summary("태그 조회 및 검색")
+	@tag("App")
+	@tag("Admin")
 	op fetchTags(...SearchByName): Paginate<Tag>;
 }

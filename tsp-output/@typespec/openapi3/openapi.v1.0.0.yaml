@@ -4,11 +4,13 @@ info:
   description: Aroundy 앱 및 어드민 페이지 공용 API
   version: v1.0.0
 tags:
+  - name: Admin
   - name: App
 paths:
   /companies:
     get:
       tags:
+        - Admin
         - App
       operationId: Companies_fetchCompanies
       summary: 기업 조회 및 검색
@@ -71,6 +73,8 @@ paths:
                     description: 페이지 메타데이터
                 description: 페이징 메타데이터
     post:
+      tags:
+        - Admin
       operationId: Companies_createCompany
       summary: 새 기업 등록
       parameters: []
@@ -91,6 +95,8 @@ paths:
         - BearerAuth: []
   /companies/{id}:
     patch:
+      tags:
+        - Admin
       operationId: Companies_updateCompany
       summary: 기업정보 수정
       parameters:
@@ -123,6 +129,8 @@ paths:
       security:
         - BearerAuth: []
     delete:
+      tags:
+        - Admin
       operationId: Companies_deleteCompany
       summary: 기업정보 삭제
       parameters:
@@ -138,6 +146,8 @@ paths:
         - BearerAuth: []
   /images/upload:
     post:
+      tags:
+        - Admin
       operationId: uploadImage
       summary: 이미지 업로드
       parameters: []
@@ -191,6 +201,7 @@ paths:
     get:
       tags:
         - App
+        - Admin
       operationId: Posts_fetchPosts
       summary: Post 조회 및 검색
       description: Post 목록을 추천 기준에 따라 조회 및 검색한다.
@@ -258,6 +269,8 @@ paths:
                     description: 페이지 메타데이터
                 description: 페이징 메타데이터
     post:
+      tags:
+        - Admin
       operationId: Posts_createPost
       summary: 새 Post 등록
       parameters: []
@@ -278,6 +291,8 @@ paths:
         - BearerAuth: []
   /posts/{id}:
     patch:
+      tags:
+        - Admin
       operationId: Posts_updatePost
       summary: Post 수정
       parameters:
@@ -358,6 +373,8 @@ paths:
       security:
         - BearerAuth: []
     delete:
+      tags:
+        - Admin
       operationId: Posts_deletePost
       summary: Post 삭제
       parameters:
@@ -436,6 +453,9 @@ paths:
           description: 'There is no content to send for this request, but the headers may be useful. '
   /tags:
     get:
+      tags:
+        - App
+        - Admin
       operationId: Tags_fetchTags
       summary: 태그 조회 및 검색
       parameters:
@@ -497,6 +517,8 @@ paths:
                 description: 페이징 메타데이터
   /users:
     get:
+      tags:
+        - Admin
       operationId: Users_fetchUsers
       summary: 회원 조회 및 검색
       parameters:
@@ -558,6 +580,8 @@ paths:
                 description: 페이징 메타데이터
   /users/{id}:
     get:
+      tags:
+        - App
       operationId: Users_fetchUser
       summary: 단일 회원정보 조회
       parameters:
@@ -572,6 +596,8 @@ paths:
       security:
         - BearerAuth: []
     patch:
+      tags:
+        - App
       operationId: Users_updateUser
       summary: 회원 개인정보 수정
       parameters:
@@ -618,6 +644,8 @@ paths:
       security:
         - BearerAuth: []
     delete:
+      tags:
+        - App
       operationId: Users_deleteUser
       summary: 회원 탈퇴
       parameters:
@@ -629,6 +657,8 @@ paths:
         - BearerAuth: []
   /users/{id}/profile:
     get:
+      tags:
+        - App
       operationId: Users_profile
       summary: 회원 프로필 정보 조회
       parameters:
