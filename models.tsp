@@ -1,9 +1,5 @@
 import "./utils.tsp";
 
-/** 고유 ID */
-@format("uuid")
-scalar id extends string;
-
 /** 상속용 Post 클래스 */
 model BasePost {
 	/** 제목 */
@@ -103,19 +99,6 @@ model Company extends BaseCompany {
 }
 
 /**
- * 이벤트 유형
- *
- * - `online`: 온라인
- * - `offline`: 오프라인
- * - `both`: 온/오프라인
- * */
-enum EventType {
-	online,
-	offline,
-	both,
-}
-
-/**
  * 이미지 업로드 정보
  * */
 model Image {
@@ -181,17 +164,4 @@ model UserProfile extends BaseUserProfile {
 
 	/** 사용자가 저장한 포스트 목록 */
 	saved: Paginate<Post[]>;
-}
-
-/**
- * 회원 성별
- *
- * - `Woman`: 여성
- * - `Man`: 남성
- * - `Other`: 기타
- */
-enum Gender {
-	Woman,
-	Man,
-	Other,
 }
