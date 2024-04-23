@@ -207,6 +207,7 @@ paths:
         - $ref: '#/components/parameters/Posts.QueryOption.sort'
         - $ref: '#/components/parameters/Posts.QueryOption.companies'
         - $ref: '#/components/parameters/Posts.QueryOption.location'
+        - $ref: '#/components/parameters/Posts.QueryOption.tags'
         - $ref: '#/components/parameters/Posts.QueryOption.ended'
         - $ref: '#/components/parameters/Posts.QueryOption.search'
       responses:
@@ -664,6 +665,17 @@ components:
       description: 추천 기준
       schema:
         $ref: '#/components/schemas/SortOption'
+    Posts.QueryOption.tags:
+      name: tags
+      in: query
+      required: false
+      description: 태그 한정 필터
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/id'
+      style: form
+      explode: false
   schemas:
     BaseCompany:
       type: object

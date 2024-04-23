@@ -53,6 +53,12 @@ namespace Posts {
 		})
 		location?: Location[];
 
+		/** 태그 한정 필터 */
+		@query({
+			format: "csv",
+		})
+		tags?: id[];
+
 		/**
 		 * 이벤트 상태 필터
 		 *
