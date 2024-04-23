@@ -99,12 +99,19 @@ model Company extends BaseCompany {
 	id: id;
 }
 
-/**
- * 이미지 업로드 정보
- * */
+/** 이미지 업로드 정보 */
 model Image {
 	filename: string;
 	image: bytes;
+}
+
+/** 태그 정보 */
+model Tag {
+	/** 태그 고유 ID */
+	id: id;
+
+	/** 태그명 */
+	displayName: string;
 }
 
 /** 상속용 UserProfile 클래스 */
