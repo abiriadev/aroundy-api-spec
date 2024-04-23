@@ -5,7 +5,6 @@ info:
   version: v1.0.0
 tags:
   - name: App
-  - name: Admin
 paths:
   /companies:
     get:
@@ -514,12 +513,23 @@ paths:
                     description: 페이지 메타데이터
                 description: 페이징 메타데이터
   /users/{id}:
+    get:
+      operationId: Users_fetchUser
+      summary: 단일 회원정보 조회
+      parameters:
+        - $ref: '#/components/parameters/ById'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+        - BearerAuth: []
     patch:
-      tags:
-        - App
-        - Admin
       operationId: Users_updateUser
-      summary: 회원정보 수정
+      summary: 회원 개인정보 수정
       parameters:
         - $ref: '#/components/parameters/ById'
       responses:
@@ -568,6 +578,21 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+  /users/{id}/profile:
+    get:
+      operationId: Users_profile
+      summary: 회원 프로필 정보 조회
+      parameters:
+        - $ref: '#/components/parameters/ById'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
       security:
         - BearerAuth: []
 components:

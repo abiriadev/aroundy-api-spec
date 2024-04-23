@@ -239,15 +239,19 @@ namespace Users {
 		@query search?: string,
 	): Paginate<User>;
 
-	@summary("회원정보 수정")
-	@tag("App")
-	@tag("Admin")
+	@summary("단일 회원정보 조회")
+	@useAuth(BearerAuth)
+	op fetchUser(...ById): User;
+
+	@summary("회원 프로필 정보 조회")
+	@useAuth(BearerAuth)
+	@route("/{id}/profile")
+	op profile(...ById): UserProfile;
+
+	@summary("회원 개인정보 수정")
 	@useAuth(BearerAuth)
 	@patch
-	op updateUser(
-		...ById,
-		...OptionalProperties<BaseUser>,
-	): User;
+	op updateUser(...ById, ...UpdateUser): User;
 
 	@summary("회원 탈퇴")
 	@useAuth(BearerAuth)
