@@ -89,24 +89,33 @@ namespace Posts {
 	@patch
 	op updatePost(...ById, ...UpdatePost): Post;
 
-	@summary("좋아요 추가")
 	@tag("App")
 	@useAuth(BearerAuth)
+	@post
+	op set<T = ById>(...T): void;
+
+	@tag("App")
+	@useAuth(BearerAuth)
+	@delete
+	op unset<T = ById>(...T): void;
+
 	@route("/{id}/like")
-	@patch
-	op like(...ById): void;
+	namespace Like {
+		@summary("좋아요 추가")
+		op like is set;
 
-	@summary("좋아요 해제")
-	@route("/{id}/unlike")
-	op unlike is like;
+		@summary("좋아요 해제")
+		op unlike is unset;
+	}
 
-	@summary("마이페이지에 저장")
 	@route("/{id}/save")
-	op save is like;
+	namespace Save {
+		@summary("마이페이지에 저장")
+		op save is set;
 
-	@summary("마이페이지에서 저장 취소")
-	@route("/{id}/unsave")
-	op unsave is like;
+		@summary("마이페이지에서 저장 취소")
+		op unsave is unset;
+	}
 
 	@summary("조회수 증가")
 	@tag("App")

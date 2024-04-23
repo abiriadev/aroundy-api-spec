@@ -389,10 +389,10 @@ paths:
       security:
         - BearerAuth: []
   /posts/{id}/like:
-    patch:
+    post:
       tags:
         - App
-      operationId: Posts_like
+      operationId: Like_like
       summary: 좋아요 추가
       parameters:
         - $ref: '#/components/parameters/ById'
@@ -401,24 +401,10 @@ paths:
           description: 'There is no content to send for this request, but the headers may be useful. '
       security:
         - BearerAuth: []
-  /posts/{id}/save:
-    patch:
+    delete:
       tags:
         - App
-      operationId: Posts_save
-      summary: 마이페이지에 저장
-      parameters:
-        - $ref: '#/components/parameters/ById'
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-      security:
-        - BearerAuth: []
-  /posts/{id}/unlike:
-    patch:
-      tags:
-        - App
-      operationId: Posts_unlike
+      operationId: Like_unlike
       summary: 좋아요 해제
       parameters:
         - $ref: '#/components/parameters/ById'
@@ -427,11 +413,23 @@ paths:
           description: 'There is no content to send for this request, but the headers may be useful. '
       security:
         - BearerAuth: []
-  /posts/{id}/unsave:
-    patch:
+  /posts/{id}/save:
+    post:
       tags:
         - App
-      operationId: Posts_unsave
+      operationId: Save_save
+      summary: 마이페이지에 저장
+      parameters:
+        - $ref: '#/components/parameters/ById'
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+    delete:
+      tags:
+        - App
+      operationId: Save_unsave
       summary: 마이페이지에서 저장 취소
       parameters:
         - $ref: '#/components/parameters/ById'
