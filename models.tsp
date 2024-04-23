@@ -128,9 +128,6 @@ model BaseUser {
 	@secret
 	name: string;
 
-	/** 프로필 이미지 */
-	avatar: url;
-
 	/** 회원 성별 */
 	@secret
 	gender: Gender | null;
