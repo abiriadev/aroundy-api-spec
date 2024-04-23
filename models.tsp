@@ -2,7 +2,7 @@ import "./utils.tsp";
 import "./types.tsp";
 
 /** 상속용 Post 클래스 */
-model BasePost {
+model BasePost extends Identifiable {
 	/** 제목 */
 	title: string;
 
@@ -43,6 +43,7 @@ model BasePost {
 }
 
 /** Post 생성 시 입력할 정보 */
+@withoutOmittedProperties("id")
 model CreatePost extends BasePost {
 	/** Post를 생성할 기업의 ID */
 	companyId: id;
@@ -52,17 +53,13 @@ model CreatePost extends BasePost {
 }
 
 /** Post 수정 시 입력할 정보 */
-alias UpdatePost = OptionalProperties<{
-	...BasePost;
-
-	/** 태그 id 목록 */
-	tagIds: id[];
-}>;
+alias UpdatePost = OptionalProperties<OmitProperties<
+	CreatePost,
+	"companyId"
+>>;
 
 /** Post 정보 */
 model Post extends BasePost {
-	...Identifiable;
-
 	/** 게시일 */
 	createAt: utcDateTime;
 
@@ -118,7 +115,7 @@ model Tag extends Identifiable {
 }
 
 /** 상속용 UserProfile 클래스 */
-model BaseUserProfile {
+model BaseUserProfile extends Identifiable {
 	/** 사용자 실명 */
 	name: string;
 }
@@ -139,14 +136,18 @@ model BaseUser extends BaseUserProfile {
 	/** 전화번호 */
 	telephone: string | null;
 
-	/** 생년월일 */
+	/**
+	 * 생년월일
+	 *
+	 * 형식은 [RFC 3339문서의 5.6 문단](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)을 따른다.
+	 *
+	 * @example "2005-12-12"
+	 */
 	birth: plainDate | null;
 }
 
 /** 회원 정보 */
 model User extends BaseUser {
-	...Identifiable;
-
 	/** 사용한 소셜 로그인 서비스 */
 	oAuthProvider: string;
 
@@ -158,7 +159,10 @@ model User extends BaseUser {
 }
 
 /** User 수정 시 입력할 정보 */
-alias UpdateUser = OptionalProperties<BaseUser>;
+alias UpdateUser = OptionalProperties<OmitProperties<
+	BaseUser,
+	"id"
+>>;
 
 /**
  * 회원 프로필 정보
@@ -166,8 +170,6 @@ alias UpdateUser = OptionalProperties<BaseUser>;
  * 프로필 페이지에 보여줄 정보들이 포함된다.
  */
 model UserProfile extends BaseUserProfile {
-	...Identifiable;
-
 	/** 사용자가 팔로우 중인 기업 목록 */
 	follows: Paginate<Company[]>;
 

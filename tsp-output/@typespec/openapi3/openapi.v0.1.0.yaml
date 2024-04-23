@@ -805,6 +805,8 @@ components:
         name:
           type: string
           description: 사용자 실명
+      allOf:
+        - $ref: '#/components/schemas/Identifiable'
       description: 상속용 UserProfile 클래스
     Company:
       type: object
@@ -1005,15 +1007,10 @@ components:
     User:
       type: object
       required:
-        - id
         - oAuthProvider
         - createAt
         - lastLogin
       properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/id'
-          description: 고유 ID
         oAuthProvider:
           type: string
           description: 사용한 소셜 로그인 서비스
@@ -1031,14 +1028,9 @@ components:
     UserProfile:
       type: object
       required:
-        - id
         - follows
         - saved
       properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/id'
-          description: 고유 ID
         follows:
           type: object
           required:
