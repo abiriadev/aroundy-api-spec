@@ -206,8 +206,6 @@ paths:
         - $ref: '#/components/parameters/Posts.QueryOption.category'
         - $ref: '#/components/parameters/Posts.QueryOption.sort'
         - $ref: '#/components/parameters/Posts.QueryOption.companies'
-        - $ref: '#/components/parameters/Posts.QueryOption.priceMin'
-        - $ref: '#/components/parameters/Posts.QueryOption.priceMax'
         - $ref: '#/components/parameters/Posts.QueryOption.location'
         - $ref: '#/components/parameters/Posts.QueryOption.ended'
         - $ref: '#/components/parameters/Posts.QueryOption.search'
@@ -649,28 +647,6 @@ components:
           $ref: '#/components/schemas/Location'
       style: form
       explode: false
-    Posts.QueryOption.priceMax:
-      name: priceMax
-      in: query
-      required: false
-      description: |-
-        최대 가격 필터
-
-        단위는 10k KRW
-      schema:
-        type: integer
-        format: uint64
-    Posts.QueryOption.priceMin:
-      name: priceMin
-      in: query
-      required: false
-      description: |-
-        최소 가격 필터
-
-        단위는 10k KRW
-      schema:
-        type: integer
-        format: uint64
     Posts.QueryOption.search:
       name: search
       in: query
