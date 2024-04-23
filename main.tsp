@@ -226,3 +226,35 @@ namespace Login {
 	@route("/kakao")
 	op kakao(): {};
 }
+
+@route("/users")
+namespace Users {
+	@summary("회원 조회 및 검색")
+	op fetchUsers(
+		/**
+		 * 검색어
+		 *
+		 * 초성 검색 지원
+		 * */
+		@query search?: string,
+	): Paginate<User>;
+
+	@summary("단일 회원정보 조회")
+	@useAuth(BearerAuth)
+	op fetchUser(...ById): User;
+
+	@summary("회원 프로필 정보 조회")
+	@useAuth(BearerAuth)
+	@route("/{id}/profile")
+	op profile(...ById): UserProfile;
+
+	@summary("회원 개인정보 수정")
+	@useAuth(BearerAuth)
+	@patch
+	op updateUser(...ById, ...UpdateUser): User;
+
+	@summary("회원 탈퇴")
+	@useAuth(BearerAuth)
+	@delete
+	op deleteUser(...ById): void;
+}

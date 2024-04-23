@@ -1,3 +1,5 @@
+import "./utils.tsp";
+
 /** 고유 ID */
 @format("uuid")
 scalar id extends string;
@@ -119,4 +121,77 @@ enum EventType {
 model Image {
 	filename: string;
 	image: bytes;
+}
+
+/** 상속용 UserProfile 클래스 */
+model BaseUserProfile {
+	/** 사용자 실명 */
+	name: string;
+}
+
+/**
+ * 상속용 User 클래스
+ *
+ * 주로 사용자가 회원가입 후 추가적으로 입력하는 개인정보들이 포함된다.
+ */
+model BaseUser extends BaseUserProfile {
+	/** 회원 성별 */
+	gender: Gender | null;
+
+	/** 이메일 */
+	@format("email")
+	email: string;
+
+	/** 전화번호 */
+	telephone: string | null;
+
+	/** 생년월일 */
+	birth: plainDate | null;
+}
+
+/** 회원 정보 */
+model User extends BaseUser {
+	/** 회원 고유 ID */
+	id: id;
+
+	/** 사용한 소셜 로그인 서비스 */
+	oAuthProvider: string;
+
+	/** 회원 가입일 */
+	createAt: utcDateTime;
+
+	/** 마지막 로그인 시점 */
+	lastLogin: utcDateTime;
+}
+
+/** User 수정 시 입력할 정보 */
+alias UpdateUser = OptionalProperties<BaseUser>;
+
+/**
+ * 회원 프로필 정보
+ *
+ * 프로필 페이지에 보여줄 정보들이 포함된다.
+ */
+model UserProfile extends BaseUserProfile {
+	/** 회원 고유 ID */
+	id: id;
+
+	/** 사용자가 팔로우 중인 기업 목록 */
+	follows: Paginate<Company[]>;
+
+	/** 사용자가 저장한 포스트 목록 */
+	saved: Paginate<Post[]>;
+}
+
+/**
+ * 회원 성별
+ *
+ * - `Woman`: 여성
+ * - `Man`: 남성
+ * - `Other`: 기타
+ */
+enum Gender {
+	Woman,
+	Man,
+	Other,
 }
