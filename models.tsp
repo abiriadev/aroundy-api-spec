@@ -43,8 +43,7 @@ model BasePost extends Identifiable {
 }
 
 /** Post 생성 시 입력할 정보 */
-@withoutOmittedProperties("id")
-model CreatePost extends BasePost {
+model CreatePost extends OmitProperties<BasePost, "id"> {
 	/** Post를 생성할 기업의 ID */
 	companyId: id;
 

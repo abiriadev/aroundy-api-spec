@@ -304,6 +304,11 @@ paths:
             schema:
               type: object
               properties:
+                tagIds:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/id'
+                  description: 태그 id 목록
                 title:
                   type: string
                   description: 제목
@@ -357,11 +362,6 @@ paths:
                   format: uri
                   nullable: true
                   description: 출처 링크
-                tagIds:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/id'
-                  description: 태그 id 목록
               description: The template for adding optional properties.
       security:
         - BearerAuth: []
@@ -442,6 +442,75 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+  /tags:
+    get:
+      operationId: Tags_fetchTags
+      summary: 태그 조회 및 검색
+      parameters:
+        - name: search
+          in: query
+          required: false
+          description: |-
+            검색어
+
+            초성 검색 지원
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                  - page
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                    description: 실제 데이터
+                  page:
+                    type: object
+                    properties:
+                      totalRecords:
+                        type: integer
+                        format: uint64
+                        description: 검색된 총 항목 수
+                      totalPages:
+                        type: integer
+                        format: uint64
+                        description: 총 페이지 갯수
+                      pageSize:
+                        type: integer
+                        format: uint64
+                        description: 현재 페이지에 포함된 항목 수
+                      nextPage:
+                        type: integer
+                        format: uint64
+                        nullable: true
+                        description: |-
+                          다음 페이지 번호
+
+                          현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                      nextRecords:
+                        type: integer
+                        format: uint64
+                        description: |-
+                          다음 페이지에 나타날 항목 수
+
+                          다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                          다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+                    required:
+                      - totalRecords
+                      - totalPages
+                      - pageSize
+                      - nextPage
+                      - nextRecords
+                    description: 페이지 메타데이터
+                description: 페이징 메타데이터
   /users:
     get:
       operationId: Users_fetchUsers
@@ -562,7 +631,10 @@ paths:
                   type: string
                   format: date
                   nullable: true
-                  description: 생년월일
+                  description: |-
+                    생년월일
+
+                    형식은 [RFC 3339문서의 5.6 문단](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)을 따른다.
                 name:
                   type: string
                   description: 사용자 실명
@@ -764,6 +836,8 @@ components:
           format: uri
           nullable: true
           description: 출처 링크
+      allOf:
+        - $ref: '#/components/schemas/Identifiable'
       description: 상속용 Post 클래스
     BaseUser:
       type: object
@@ -790,7 +864,10 @@ components:
           type: string
           format: date
           nullable: true
-          description: 생년월일
+          description: |-
+            생년월일
+
+            형식은 [RFC 3339문서의 5.6 문단](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)을 따른다.
       allOf:
         - $ref: '#/components/schemas/BaseUserProfile'
       description: |-
@@ -836,7 +913,75 @@ components:
             $ref: '#/components/schemas/id'
           description: 태그 id 목록
       allOf:
-        - $ref: '#/components/schemas/BasePost'
+        - type: object
+          required:
+            - title
+            - category
+            - feeds
+            - caption
+            - type
+            - location
+            - contact
+            - pricing
+            - discountRate
+            - startsAt
+            - endsAt
+            - link
+          properties:
+            title:
+              type: string
+              description: 제목
+            category:
+              type: string
+              description: 카테고리
+            feeds:
+              type: array
+              items:
+                type: string
+                format: uri
+              maxItems: 10
+              description: 피드 배너 이미지 목록
+            caption:
+              type: string
+              maxLength: 2200
+              description: Post 상세 내용
+            type:
+              allOf:
+                - $ref: '#/components/schemas/EventType'
+              description: 이벤트 유형
+            location:
+              type: string
+              nullable: true
+              description: 상세주소
+            contact:
+              type: string
+              nullable: true
+              description: 연락처
+            pricing:
+              type: integer
+              format: uint64
+              nullable: true
+              description: 가격
+            discountRate:
+              type: integer
+              format: uint64
+              nullable: true
+              description: 할인률
+            startsAt:
+              type: string
+              format: date-time
+              description: 오픈일
+            endsAt:
+              type: string
+              format: date-time
+              nullable: true
+              description: 종료일
+            link:
+              type: string
+              format: uri
+              nullable: true
+              description: 출처 링크
+          description: The template for omitting properties.
       description: Post 생성 시 입력할 정보
     EventType:
       type: string
@@ -926,7 +1071,6 @@ components:
     Post:
       type: object
       required:
-        - id
         - createAt
         - company
         - tags
@@ -935,10 +1079,6 @@ components:
         - isLiked
         - isSaved
       properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/id'
-          description: 고유 ID
         createAt:
           type: string
           format: date-time
