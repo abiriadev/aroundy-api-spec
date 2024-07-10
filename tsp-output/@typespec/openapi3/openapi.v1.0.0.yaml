@@ -401,7 +401,8 @@ paths:
                   type: string
                   description: 제목
                 category:
-                  type: string
+                  allOf:
+                    - $ref: '#/components/schemas/Category.BaseUpdate'
                   description: 카테고리
                 feeds:
                   type: array
@@ -868,6 +869,20 @@ components:
           type: boolean
           description: 상태
       description: 상속용 Company 클래스
+    BaseCompanyUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 기업명
+        logo:
+          type: string
+          format: uri
+          description: 기업 로고
+        active:
+          type: boolean
+          description: 상태
+      description: 상속용 Company 클래스
     BasePost:
       type: object
       required:
@@ -888,7 +903,8 @@ components:
           type: string
           description: 제목
         category:
-          type: string
+          allOf:
+            - $ref: '#/components/schemas/Category.Base'
           description: 카테고리
         feeds:
           type: array
@@ -940,6 +956,66 @@ components:
       allOf:
         - $ref: '#/components/schemas/Identifiable'
       description: 상속용 Post 클래스
+    BasePostUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 제목
+        category:
+          allOf:
+            - $ref: '#/components/schemas/Category.BaseUpdate'
+          description: 카테고리
+        feeds:
+          type: array
+          items:
+            type: string
+            format: uri
+          maxItems: 10
+          description: 피드 배너 이미지 목록
+        caption:
+          type: string
+          maxLength: 2200
+          description: Post 상세 내용
+        type:
+          allOf:
+            - $ref: '#/components/schemas/EventType'
+          description: 이벤트 유형
+        location:
+          type: string
+          nullable: true
+          description: 상세주소
+        contact:
+          type: string
+          nullable: true
+          description: 연락처
+        pricing:
+          type: integer
+          format: uint64
+          nullable: true
+          description: 가격
+        discountRate:
+          type: integer
+          format: uint64
+          nullable: true
+          description: 할인률
+        startsAt:
+          type: string
+          format: date-time
+          description: 오픈일
+        endsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 종료일
+        link:
+          type: string
+          format: uri
+          nullable: true
+          description: 출처 링크
+      allOf:
+        - $ref: '#/components/schemas/IdentifiableUpdate'
+      description: 상속용 Post 클래스
     BaseUser:
       type: object
       required:
@@ -986,6 +1062,45 @@ components:
       allOf:
         - $ref: '#/components/schemas/Identifiable'
       description: 상속용 UserProfile 클래스
+    BaseUserProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 사용자 실명
+      allOf:
+        - $ref: '#/components/schemas/IdentifiableUpdate'
+      description: 상속용 UserProfile 클래스
+    BaseUserUpdate:
+      type: object
+      properties:
+        gender:
+          oneOf:
+            - $ref: '#/components/schemas/Gender'
+          nullable: true
+          description: 회원 성별
+        email:
+          type: string
+          format: email
+          description: 이메일
+        telephone:
+          type: string
+          nullable: true
+          description: 전화번호
+        birth:
+          type: string
+          format: date
+          nullable: true
+          description: |-
+            생년월일
+
+            형식은 [RFC 3339문서의 5.6 문단](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)을 따른다.
+      allOf:
+        - $ref: '#/components/schemas/BaseUserProfileUpdate'
+      description: |-
+        상속용 User 클래스
+
+        주로 사용자가 회원가입 후 추가적으로 입력하는 개인정보들이 포함된다.
     Category.Base:
       type: object
       required:
@@ -996,6 +1111,15 @@ components:
           description: 카테고리명
       allOf:
         - $ref: '#/components/schemas/Identifiable'
+      description: 카테고리 정보
+    Category.BaseUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 카테고리명
+      allOf:
+        - $ref: '#/components/schemas/IdentifiableUpdate'
       description: 카테고리 정보
     Category.Create:
       type: object
@@ -1016,6 +1140,16 @@ components:
           description: 고유 ID
       allOf:
         - $ref: '#/components/schemas/BaseCompany'
+      description: 기업 정보
+    CompanyUpdate:
+      type: object
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 고유 ID
+      allOf:
+        - $ref: '#/components/schemas/BaseCompanyUpdate'
       description: 기업 정보
     CreatePost:
       type: object
@@ -1052,7 +1186,8 @@ components:
               type: string
               description: 제목
             category:
-              type: string
+              allOf:
+                - $ref: '#/components/schemas/Category.Base'
               description: 카테고리
             feeds:
               type: array
@@ -1131,6 +1266,13 @@ components:
       type: object
       required:
         - id
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/id'
+          description: 고유 ID
+    IdentifiableUpdate:
+      type: object
       properties:
         id:
           allOf:
@@ -1227,6 +1369,37 @@ components:
       allOf:
         - $ref: '#/components/schemas/BasePost'
       description: Post 정보
+    PostUpdate:
+      type: object
+      properties:
+        createAt:
+          type: string
+          format: date-time
+          description: 게시일
+        company:
+          allOf:
+            - $ref: '#/components/schemas/CompanyUpdate'
+          description: Post를 등록한 기업
+        tags:
+          type: array
+          description: 태그 목록
+        likes:
+          type: integer
+          format: uint64
+          description: 좋아요 수
+        views:
+          type: integer
+          format: uint64
+          description: 조회수
+        isLiked:
+          type: boolean
+          description: 현재 로그인된 사용자가 이미 좋아요한 Post인지 여부
+        isSaved:
+          type: boolean
+          description: 현재 로그인된 사용자가 이미 마이페이지에 저장한 Post인지 여부
+      allOf:
+        - $ref: '#/components/schemas/BasePostUpdate'
+      description: Post 정보
     SortOption:
       type: string
       enum:
@@ -1261,6 +1434,15 @@ components:
           description: 태그명
       allOf:
         - $ref: '#/components/schemas/Identifiable'
+      description: 태그 정보
+    Tag.BaseUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 태그명
+      allOf:
+        - $ref: '#/components/schemas/IdentifiableUpdate'
       description: 태그 정보
     Tag.Create:
       type: object
@@ -1407,6 +1589,118 @@ components:
         회원 프로필 정보
 
         프로필 페이지에 보여줄 정보들이 포함된다.
+    UserProfileUpdate:
+      type: object
+      properties:
+        follows:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+              description: 실제 데이터
+            page:
+              type: object
+              properties:
+                totalRecords:
+                  type: integer
+                  format: uint64
+                  description: 검색된 총 항목 수
+                totalPages:
+                  type: integer
+                  format: uint64
+                  description: 총 페이지 갯수
+                pageSize:
+                  type: integer
+                  format: uint64
+                  description: 현재 페이지에 포함된 항목 수
+                nextPage:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: |-
+                    다음 페이지 번호
+
+                    현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                nextRecords:
+                  type: integer
+                  format: uint64
+                  description: |-
+                    다음 페이지에 나타날 항목 수
+
+                    다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                    다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+              description: 페이지 메타데이터
+          description: 사용자가 팔로우 중인 기업 목록
+        saved:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              description: 실제 데이터
+            page:
+              type: object
+              properties:
+                totalRecords:
+                  type: integer
+                  format: uint64
+                  description: 검색된 총 항목 수
+                totalPages:
+                  type: integer
+                  format: uint64
+                  description: 총 페이지 갯수
+                pageSize:
+                  type: integer
+                  format: uint64
+                  description: 현재 페이지에 포함된 항목 수
+                nextPage:
+                  type: integer
+                  format: uint64
+                  nullable: true
+                  description: |-
+                    다음 페이지 번호
+
+                    현재 페이지가 마지막 페이지인 경우 `nextPage`는 `null`이 된다.
+                nextRecords:
+                  type: integer
+                  format: uint64
+                  description: |-
+                    다음 페이지에 나타날 항목 수
+
+                    다음 페이지가 마지막 페이지일 경우 페이지 크기로 나누어 떨어지지 않는 값이 들어간다.
+                    다음 페이지 로딩 전 표시할 스켈레톤 갯수를 맞추기 위해 사용한다.
+              description: 페이지 메타데이터
+          description: 사용자가 저장한 포스트 목록
+      allOf:
+        - $ref: '#/components/schemas/BaseUserProfileUpdate'
+      description: |-
+        회원 프로필 정보
+
+        프로필 페이지에 보여줄 정보들이 포함된다.
+    UserUpdate:
+      type: object
+      properties:
+        oAuthProvider:
+          type: string
+          description: 사용한 소셜 로그인 서비스
+        createAt:
+          type: string
+          format: date-time
+          description: 회원 가입일
+        lastLogin:
+          type: string
+          format: date-time
+          description: 마지막 로그인 시점
+      allOf:
+        - $ref: '#/components/schemas/BaseUserUpdate'
+      description: 회원 정보
     Versions:
       type: string
       enum:

@@ -7,7 +7,7 @@ model BasePost extends Identifiable {
 	title: string;
 
 	/** 카테고리 */
-	category: string;
+	category: Category.Base;
 
 	/** 피드 배너 이미지 목록 */
 	@maxItems(10)
