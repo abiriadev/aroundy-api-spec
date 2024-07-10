@@ -23,6 +23,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Category.Create'
+      security:
+        - BearerAuth: []
     get:
       tags:
         - App
@@ -544,6 +546,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Tag.Create'
+      security:
+        - BearerAuth: []
     get:
       tags:
         - App
@@ -670,6 +674,8 @@ paths:
                       - nextRecords
                     description: 페이지 메타데이터
                 description: 페이징 메타데이터
+      security:
+        - BearerAuth: []
   /users/{id}:
     get:
       tags:

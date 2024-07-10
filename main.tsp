@@ -183,6 +183,7 @@ namespace Login {
 @route("/users")
 namespace Users {
 	@summary("회원 조회 및 검색")
+	@useAuth(BearerAuth)
 	@tag("Admin")
 	op fetchUsers(...SearchByName): Paginate<User>;
 
@@ -214,6 +215,7 @@ namespace Users {
 namespace Categories {
 	@summary("카테고리 생성")
 	@tag("Admin")
+	@useAuth(BearerAuth)
 	op createCategory(...Category.Create): void;
 
 	@summary("카테고리 조회 및 검색")
@@ -228,6 +230,7 @@ namespace Categories {
 namespace Tags {
 	@summary("태그 생성")
 	@tag("Admin")
+	@useAuth(BearerAuth)
 	op createTag(...Tag.Create): void;
 
 	@summary("태그 조회 및 검색")
