@@ -210,6 +210,20 @@ namespace Users {
 	op deleteUser(...ById): void;
 }
 
+@route("/categories")
+namespace Categories {
+	@summary("카테고리 생성")
+	@tag("Admin")
+	op createCategory(...Category.Create): void;
+
+	@summary("카테고리 조회 및 검색")
+	@tag("App")
+	@tag("Admin")
+	op fetchCategories(
+		...SearchByName,
+	): Paginate<Category.Base>;
+}
+
 @route("/tags")
 namespace Tags {
 	@summary("태그 생성")

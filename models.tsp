@@ -107,6 +107,19 @@ model Image {
 	image: bytes;
 }
 
+/** 카테고리 관련 타입 */
+namespace Category {
+	/** 카테고리 정보 */
+	model Base extends Identifiable {
+		...Create;
+	}
+
+	model Create {
+		/** 카테고리명 */
+		name: string;
+	}
+}
+
 /** 태그 관련 타입 */
 namespace Tag {
 	/** 태그 정보 */
@@ -116,7 +129,7 @@ namespace Tag {
 
 	model Create {
 		/** 태그명 */
-		displayName: string;
+		name: string;
 	}
 }
 
