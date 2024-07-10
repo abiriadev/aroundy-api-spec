@@ -212,8 +212,12 @@ namespace Users {
 
 @route("/tags")
 namespace Tags {
+	@summary("태그 생성")
+	@tag("Admin")
+	op createTag(...Tag.Create): void;
+
 	@summary("태그 조회 및 검색")
 	@tag("App")
 	@tag("Admin")
-	op fetchTags(...SearchByName): Paginate<Tag>;
+	op fetchTags(...SearchByName): Paginate<Tag.Base>;
 }

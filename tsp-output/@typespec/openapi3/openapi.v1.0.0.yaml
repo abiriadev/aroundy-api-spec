@@ -450,6 +450,21 @@ paths:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
   /tags:
+    post:
+      tags:
+        - Admin
+      operationId: Tags_createTag
+      summary: 태그 생성
+      parameters: []
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag.Create'
     get:
       tags:
         - App
@@ -472,7 +487,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Tag'
+                      $ref: '#/components/schemas/Tag.Base'
                     description: 실제 데이터
                   page:
                     type: object
@@ -746,10 +761,7 @@ components:
       name: search
       in: query
       required: false
-      description: |-
-        검색어
-
-        초성 검색 지원
+      description: 검색어
       schema:
         type: string
   schemas:
@@ -1093,8 +1105,6 @@ components:
           description: Post를 등록한 기업
         tags:
           type: array
-          items:
-            $ref: '#/components/schemas/Tag'
           description: 태그 목록
         likes:
           type: integer
@@ -1137,7 +1147,7 @@ components:
         - `lowserPrice`: 낮은 가격순
         - `farthest`: 먼 거리순
         - `nearest`: 가까운 거리순
-    Tag:
+    Tag.Base:
       type: object
       required:
         - displayName
@@ -1148,6 +1158,14 @@ components:
       allOf:
         - $ref: '#/components/schemas/Identifiable'
       description: 태그 정보
+    Tag.Create:
+      type: object
+      required:
+        - displayName
+      properties:
+        displayName:
+          type: string
+          description: 태그명
     User:
       type: object
       required:

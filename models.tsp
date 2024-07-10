@@ -107,10 +107,17 @@ model Image {
 	image: bytes;
 }
 
-/** 태그 정보 */
-model Tag extends Identifiable {
-	/** 태그명 */
-	displayName: string;
+/** 태그 관련 타입 */
+namespace Tag {
+	/** 태그 정보 */
+	model Base extends Identifiable {
+		...Create;
+	}
+
+	model Create {
+		/** 태그명 */
+		displayName: string;
+	}
 }
 
 /** 상속용 UserProfile 클래스 */

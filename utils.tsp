@@ -15,8 +15,6 @@ model ById {
 model SearchByName {
 	/**
 	 * 검색어
-	 *
-	 * 초성 검색 지원
 	 */
 	@query search?: string;
 }
